@@ -1,0 +1,33 @@
+What we intend to do: 
+
+Overview: We would like to create a web application that allows the user to explore wine varieties/ratings. 
+It also allows the user to add entries of their own to the database.
+ 
+The data: It’s a dataset of over 100K wine reviews, from professional reviewers. 
+here thousands of wine varieties from many countries, and many regions within those countries. 
+Each wine is given a rating (out of 100). There is also a price per bottle, and written description.
+
+The application: We want to design a web-interface that connects to our database (we would be using AngularJS, just like in the later labs). 
+The user would also get some tools to explore the data (maybe filtering by types, country of origin, province, rating, cost). 
+
+The user could even add their wine (that isn’t already in there). 
+One feature would allow the user to add their own review and rating of a wine. 
+The app would give the user an option to see the posted review (if it exists), and compare them. 
+There could also be a shared favorites page, where ANYONE can post their favorite wine (maybe with their review and rating). 
+
+The database: We would create a new database, and populate it with a downloaded .csv file (or .txt if it ends being easier). 
+The data would be partitioned into appropriate tables (thinking about normal forms, and what data would be dependent, 
+and what is commonly joined). 
+
+Our roles:
+(for now, we need have not partitioned specifics of the work yet and will be working together on the beginning stages)
+
+1. Different ways to break up the data into appropriate tables. Each team member would propose some ways to organize associated data 
+(or add summarizing values, think of max, min, etc) with what they were assigned. THey would also make the table that showcases their 
+organization, and explaion why it makes sense.
+2. Someone would need to pull photos of national flags (maybe province flags?) and pictures of the wine reviewer.
+3. Client-side / UI (angularJs)
+4. Back-end / Server (angularJS/node)
+
+**NOTE: In the case that someone completes their job earlier than anticipated, we encourage eachother to ask if anyone needs help, 
+or can point them in the right direction, therefore everyone pretty much is even in the workload.
