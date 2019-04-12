@@ -31,3 +31,5 @@ organization, and explaion why it makes sense.
 
 **NOTE: In the case that someone completes their job earlier than anticipated, we encourage eachother to ask if anyone needs help, 
 or can point them in the right direction, therefore everyone pretty much is even in the workload.
+
+[x] Create Basic Website
