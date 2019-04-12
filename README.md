@@ -133,3 +133,6 @@ If **not** this is the place to include those details.  It would be a good idea 
 
 **READ THIS CAREFULLY** Not turning in your final summary means you can't do better than C.
 
+## OBEJECIVES
+[x] Create Basic Website
+
