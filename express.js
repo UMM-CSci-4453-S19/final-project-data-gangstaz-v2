@@ -7,9 +7,9 @@ var express=require('express'),
 
 credentials.host='ids.morris.umn.edu'; //setup database credentials
 
-var connection = mysql.createConnection(credentials); // setup the connection
+// var connection = mysql.createConnection(credentials); // setup the connection
 
-connection.connect(function(err){if(err){console.log(error)}});
+// connection.connect(function(err){if(err){console.log(error)}});
 
 app.use(express.static(__dirname + '/public'));
 
