@@ -1,7 +1,26 @@
-angular.module('wine',[])
+var app = angular.module('wine',["ngRoute"])
     .controller('wineCtrl',WineCtrl)
     .factory('wineApi',wineApi)
     .constant('apiUrl','http://localhost:1337');
+
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/", {
+            templateUrl : "main.html"
+        })
+        .when("/featured", {
+            templateUrl : "featured.html"
+        })
+        .when("/countries", {
+            templateUrl : "countries.html"
+        })
+        .when("/value", {
+            templateUrl : "value.html"
+        })
+        .when("/search", {
+            templateUrl : "search.html"
+        });
+});
 
 function WineCtrl($scope, wineApi) {
     // $scope stuff and functions go here
@@ -34,6 +53,10 @@ function WineCtrl($scope, wineApi) {
 function wineApi($http,apiUrl) {
     return {
         // calls to api go here
+
+        // filter by country, get top wines from a few countries
+
+        // sort by ratio of price to score (value)
     };
 }
 
