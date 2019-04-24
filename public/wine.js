@@ -57,6 +57,8 @@ function wineApi($http,apiUrl) {
         // filter by country, get top wines from a few countries
 
         // sort by ratio of price to score (value)
+
+        // classics - old wines
     };
 }
 
