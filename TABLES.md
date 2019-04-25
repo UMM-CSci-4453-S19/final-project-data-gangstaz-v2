@@ -25,7 +25,7 @@ It would be helpful to have the vintage of the wine to display. In our starting 
 select vintage from (select regexp_substr(title, '(19|[2][0])[[:digit:]]{2}') as vintage from wineReviews) as qwe;
 ```
 
-The mess above is basically querying the title column, and matches 2 :digits: that are preceded either by ‘19’ or ‘20’. This extracts a four-digit number that falls within the constraints of 1900 - 2099. 
+The mess above is basically querying the title column, and matches 2 :digits: that are preceded either by ‘19’ or ‘20’. This extracts a four-digit number that falls within the constraints of 1900 - 2099. This column is entered into a new table, which I called 'temp'.
 
 Now we must update our main table to have a column for our new field.
 
