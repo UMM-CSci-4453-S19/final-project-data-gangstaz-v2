@@ -8,14 +8,17 @@ Fields we will omit: region_2
 
 ## Tables
 
-### table
-country, province, region
+### location
+location_id, country, province, region
 
-### table
-taster_name, taster_twitter_handle 
+### taster
+taster_id, taster_name, taster_twitter_handle, image_src
 
-### wine
-description, designation, points, price, variety, winery, vintage
+### review
+description, designation, points, price, variety, winery, vintage, FK location, FK taster
+
+## Views
+variety, vintage, description, points, price, country, taster_name
 
 #### Vintage parsing
 
