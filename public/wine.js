@@ -52,13 +52,51 @@ function WineCtrl($scope, wineApi) {
 
 function wineApi($http,apiUrl) {
     return {
-        // calls to api go here
+        // get list of varieties
+        getVarieties: function(){
+            var url = apiUrl + '/varieties';
+            return $http.get(url);
+        },
 
-        // filter by country, get top wines from a few countries
+        // search based on input from the search bar
+        getSearch: function(searchRegex,variety,vintage,continent){
+            var url = apiUrl + '/search?regex=' + searchRegex;
+            if(variety) {
+                url += '&variety=' + variety;
+            }
+            if(vintage) {
+                url += '&vintage=' + vintage;
+            }
+            if(continent) {
+                url += '&vintage=' + continent;
+            }
+            return $http.get(url);
+        },
+
+        // filter by country
+        getFromCountry: function(country){
+            var url = apiUrl + '/countries?filter=' + country;
+            return $http.get(url);
+        },
 
         // sort by ratio of price to score (value)
+        getValue: function() {
+            var url = apiUrl + '/value';
+            return $http.get(url);
+        },
 
-        // classics - old wines
+        // Filter by a taster
+        getTaster: function(taster){
+            var url = apiUrl + '/taster?filter=' + taster;
+            return $http.get(url);
+        },
+
+        // Post a user review (not finished, feature may not end up being implemented)
+        postReview: function(review) {
+            var url = apiUrl + '/userReview';
+            return $http.put(url);
+        }
+
     };
 }
 
