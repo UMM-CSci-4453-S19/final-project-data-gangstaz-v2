@@ -7,15 +7,14 @@ var express=require('express'),
 
 credentials.host='ids.morris.umn.edu'; //setup database credentials
 
-// var connection = mysql.createConnection(credentials); // setup the connection
+var connection = mysql.createConnection(credentials); // setup the connection
 
-// connection.connect(function(err){if(err){console.log(error)}});
+connection.connect(function(err){if(err){console.log(err)}});
 
 app.use(express.static(__dirname + '/public'));
 
-app.get("/click",function(req,res){
-    var id = req.param('id');
-    var sql = 'Call dataGangstas.addItemToCurrTrans(' + id + ')';
+app.get("/reviews",function(req,res){
+    var sql = 'SELECT * FROM test';
     console.log("Attempting sql ->"+sql+"<-");
 
     connection.query(sql,(function(res){return function(err,rows,fields){
@@ -24,7 +23,10 @@ app.get("/click",function(req,res){
             console.log(err);
             res.send(err); // Let the upstream guy know how it went
         }
-        else {res.send(rows);}
+        else {
+            console.log("here")
+            res.send(rows);
+        }
     }})(res));
 });
 

@@ -24,6 +24,7 @@ app.config(function($routeProvider) {
 
 function WineCtrl($scope, wineApi) {
     // $scope stuff and functions go here
+    $scope.getReviewArray = getReviewArray;
     $scope.reviews = [
         {
             taster: {
@@ -47,11 +48,25 @@ function WineCtrl($scope, wineApi) {
             points: 86,
             price: 10
         }
-    ]
+    ];
+    
+    function getReviewArray() {
+        wineApi.getReviews().then(function (success) {
+            console.log(success)
+            console.log("ran getReviewArray()")
+        })
+    }
+
+    getReviewArray();
+
 }
 
 function wineApi($http,apiUrl) {
     return {
+        getReviews: function(){
+            var url = apiUrl + '/reviews';
+            return $http.get(url);
+        },
         // get list of varieties
         getVarieties: function(){
             var url = apiUrl + '/varieties';
