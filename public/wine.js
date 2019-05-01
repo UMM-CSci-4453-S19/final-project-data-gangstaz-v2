@@ -48,10 +48,25 @@ function WineCtrl($scope, wineApi) {
             points: 86,
             price: 10
         }];
+    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
     var loading = false;
 
     function isLoading(){
         return loading;
+    }
+
+    function refreshVarieties(){
+        loading=true;
+        $scope.errorMessage='';
+        wineApi.getVarieties()
+            .success(function(data){
+                $scope.varieties=data;
+                loading=false;
+            })
+            .error(function () {
+                $scope.errorMessage="Unable to load Reviews:  Database request failed";
+                loading=false;
+            });
     }
 
     function refreshReviews(){
@@ -68,12 +83,12 @@ function WineCtrl($scope, wineApi) {
             });
     }
 
-    function searchReviews(searchRegex,variety,vintage,continent){
+    function searchReviews(){
         // navigate back to the home page
         $location.path('/');
-
+        console.log($scope.searchRegex+$scope.variety+$scope.vintage+$scope.continent);
         loading = true;
-        wineApi.getSearch(searchRegex,variety,vintage,continent)
+        wineApi.getSearch($scope.searchRegex,$scope.variety,$scope.vintage,$scope.continent)
             .success(function(data){
                 $scope.reviews=data;
                 loading = false;
