@@ -3,37 +3,54 @@
 //KEY:
 //vintage ->    Pre 2000's (pre2k), 2000-2009 (2ks), 2010's (210s)
 
-var sqlString = "select * from wineReviews";
+var dropDownSQL = "select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId";
+var anyTermSQL = "OR";
 
-function wineSearch(variety, vintage, continent, searchTerm) {
+function anyTermSearch(searchTerm){
+    anyTermSQL = "OR";
 
-    sqlString = "select * from wineReviews";
+    //   Fields per table that are not dropdowns:
+    //location: country, province, region, continent
+    //wineReviews: description, designation, points, price, winery
+    //taster: name, twitter
 
-    if(variety || vintage || continent || searchTerm){
-        sqlString += " where ";
+
+}
+
+function dropDownSearch(variety, vintage, continent) {
+
+    dropDownSQL = "select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId";
+
+    if(variety || vintage || continent){
+        dropDownSQL += " where ";
 
         if(variety){
-            sqlString += "variety = " + "'" + variety + "'" + " AND ";
+            dropDownSQL += "variety = " + "'" + variety + "'" + " AND ";
         }
         if(vintage){
-            sqlString += "vintage = " + "'" + vintage + "'" + " AND ";
+            dropDownSQL += "vintage = " + "'" + vintage + "'" + " AND ";
         }
         if(continent){
-            sqlString += "continent = " + "'" + continent + "'" + " AND ";
+            dropDownSQL += "continent = " + "'" + continent + "'" + " AND ";
         }
-        if(searchTerm){
-            sqlString += "searchTerm = " + "'" + searchTerm + "'" + " AND ";
+        if (dropDownSQL.endsWith(" AND ")){
+            dropDownSQL = dropDownSQL.substring(0,dropDownSQL.length - 5);
+            dropDownSQL += ";";
+            console.log(dropDownSQL);
         }
-        if (sqlString.endsWith(" AND ")){
-            sqlString = sqlString.substring(0,sqlString.length - 5);
-            console.log(sqlString);
-        }
+
+
     } else {
-        console.log(sqlString);
+        dropDownSQL += ";";
+        console.log(dropDownSQL);
     }
 }
 
-console.log(wineSearch("Red Blend",1996,"North America",null));
-console.log(wineSearch("Blue Blend",1997,null,"v"));
-console.log(wineSearch("Green Blend",null,"North America","v"));
-console.log(wineSearch(null,1999,"North America","v"));
+console.log(dropDownSearch("Red Blend",1996,"North America"));
+console.log(dropDownSearch("Blue Blend",1997,null));
+console.log(dropDownSearch("Green Blend",null,"South America"));
+console.log(dropDownSearch(null,1999,"Africa"));
+
+
+
+
