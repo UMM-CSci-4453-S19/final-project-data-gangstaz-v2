@@ -1,0 +1,36 @@
+Joining the wineReviews and location table…
+Select * from wineReviews join location on locFk = locId;
+
+Joining to taster table is similar….
+select * from wineReviews join taster on tasterFk=tasterId;
+
+**********************************************************
+*** Joining all three tables is different, but simple….***
+
+select variety, country, name, twitter from taster join wineReviews on tasterFk=tasterId join location on locFk=locId ;
+
+
+
+**Countries (we’ll use France as an example)**
+
+General page display(?)  
+select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where country = "France";
+
+Alcatraz select wines 
+select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where country = "France" order by price asc limit 5;
+
+Country’s best = 
+select max(points), * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId group by country;
+
+Country’s worst = 
+select min(points), * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId group by country;
+
+Country’s most expesnive:
+select max(price), * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId group by country;
+
+Country’s least expensive: 
+select min(price), * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId group by country;
+
+High Rollers: select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where price > 200;
+Most expensive by state in the US: 
+
