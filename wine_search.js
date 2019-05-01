@@ -3,31 +3,37 @@
 //KEY:
 //vintage ->    Pre 2000's (pre2k), 2000-2009 (2ks), 2010's (210s)
 
+var sqlString = "select * from wineReviews";
+
 function wineSearch(variety, vintage, continent, searchTerm) {
-    var sqlString = "select * from wineReviews";
+
+    sqlString = "select * from wineReviews";
 
     if(variety || vintage || continent || searchTerm){
         sqlString += " where ";
 
         if(variety){
-            sqlString += "variety = " + variety + " AND ";
+            sqlString += "variety = " + "'" + variety + "'" + " AND ";
         }
         if(vintage){
-            sqlString += "vintage = " + vintage + " AND ";
+            sqlString += "vintage = " + "'" + vintage + "'" + " AND ";
         }
         if(continent){
-            sqlString += "continent = " + continent + " AND ";
+            sqlString += "continent = " + "'" + continent + "'" + " AND ";
         }
         if(searchTerm){
-            sqlString += "searchTerm = " + searchTerm + " AND ";
+            sqlString += "searchTerm = " + "'" + searchTerm + "'" + " AND ";
         }
         if (sqlString.endsWith(" AND ")){
-            console.log(sqlString.substring(0,sqlString.length - 5));
+            sqlString = sqlString.substring(0,sqlString.length - 5);
+            console.log(sqlString);
         }
     } else {
         console.log(sqlString);
     }
 }
 
-console.log("Should log out variety and search term:");
-console.log(wineSearch("d",null,null,"v"));
+console.log(wineSearch("Red Blend",1996,"North America",null));
+console.log(wineSearch("Blue Blend",1997,null,"v"));
+console.log(wineSearch("Green Blend",null,"North America","v"));
+console.log(wineSearch(null,1999,"North America","v"));
