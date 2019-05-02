@@ -1,0 +1,45 @@
+This procedure takes one input (cnt) which determines how many random number to generate
+(within the range of IDs in the wine reviews table).
+
+It puts these in a table called 'randTable'. After calling the procedure, you can make a query like...
+
+"SELECT variety, description, FROM wineReviews, randTable WHERE wineReviews.id IN (randTable.randId)"
+
+
+//////////////////////////////////////////////////////
+
+DROP PROCEDURE IF EXISTS randomGen;
+
+DELIMITER //
+CREATE PROCEDURE randomGen(IN cnt INT)
+
+BEGIN
+  DROP TEMPORARY TABLE IF EXISTS randTable;
+  CREATE TEMPORARY TABLE randTable ( randId INT );
+
+loop_me: LOOP
+    IF cnt < 1 THEN
+      LEAVE loop_me;
+    END IF;
+
+    INSERT INTO randTable
+       SELECT wineReviews.id
+         FROM wineReviews JOIN
+              (SELECT (RAND() *
+                            (SELECT MAX(id)
+                               FROM wineReviews)) AS id)
+               AS temp
+        WHERE wineReviews.id >= temp.id
+        ORDER BY wineReviews.id ASC
+        LIMIT 1;
+
+    SET cnt = cnt - 1;
+  END LOOP loop_me;
+END//
+
+DELIMITER ;
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+source: https://jan.kneschke.de/projects/mysql/order-by-rand/
