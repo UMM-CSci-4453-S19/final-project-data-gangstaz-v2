@@ -1,0 +1,21 @@
+This just creates a table to call for all entries from the BIG JOINED TABLE
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+DROP PROCEDURE IF EXISTS paramGeneral;
+
+DELIMITER //
+CREATE PROCEDURE paramGeneral()
+
+BEGIN
+  DROP TABLE IF EXISTS paramTable;
+
+  CREATE TABLE paramTable SELECT * FROM taster
+  JOIN wineReviews ON tasterFk=tasterId
+  JOIN location ON locFk=locId;
+
+  ALTER tABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
+
+END//
+
+DELIMITER ;
