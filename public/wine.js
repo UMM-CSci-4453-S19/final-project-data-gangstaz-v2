@@ -27,32 +27,22 @@ app.config(function($routeProvider) {
 
 function WineCtrl($scope, wineApi) {
     // $scope stuff and functions go here
-    $scope.reviews = [
-        {
-            taster: {
-                name: 'Roger Voss',
-                twitter: '@vossroger'
-            },
-            title: 'Demetria 2010 RosÃ© (Santa Ynez Valley)',
-            description: 'Bubblegummy and fresh in acidity, this rosÃ© tastes like a young Beaujolais, with strawberry ' +
-            'and raspberry fruit. It\'s an enjoyable wine to wash down little tapas plates of olives, ham, salted nuts.',
-            points: 87,
-            price: 20
-
-        },
-        {
-            taster: {
-                name: 'Michael Schachner',
-                twitter: '@wineschach'
-            },
-            title: 'Segura Viudas NV Extra Dry Sparkling (Cava)',
-            description: '\"Baked plum, exotic spice and chocolate aromas almost jump out of the glass. The brawny palat' +
-            'e doles out prune, blackberry jam, licorice and tobacco alongside round, velvety tannins. A raisin note backs up the finish.\"',
-            points: 86,
-            price: 10
-        }];
+    $scope.getReviewArray = getReviewArray;
+    $scope.reviews = [];
     $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+
     var loading = false;
+
+    function getReviewArray() {
+        wineApi.getReviews()
+            .then(function (success) {
+                $scope.reviews = success.data[0];
+                console.log(success)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
     function isLoading(){
         return loading;
@@ -101,6 +91,10 @@ function WineCtrl($scope, wineApi) {
                 loading = false;
             });
     }
+
+    getReviewArray();
+
+
 }
 
 function wineApi($http,apiUrl) {
