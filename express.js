@@ -14,7 +14,7 @@ connection.connect(function(err){if(err){console.log(err)}});
 app.use(express.static(__dirname + '/public'));
 
 app.get("/reviews",function(req,res){
-    var sql = 'SELECT * FROM test';
+    var sql = 'SELECT * FROM dataGangstas.test';
     console.log("Attempting sql ->"+sql+"<-");
 
     connection.query(sql,(function(res){return function(err,rows,fields){
