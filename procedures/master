@@ -1,0 +1,15 @@
+
+
+DROP PROCEDURE IF EXISTS master;
+
+DELIMITER //
+CREATE PROCEDURE paramCountry(IN varType TEXT, IN varVal TEXT)
+
+BEGIN
+
+IF varType = "c" THEN CALL paramCountry(varVal);
+
+ELSEIF varType = "t" THEN CALL paramTaster(varVal);
+
+ELSEIF varType = "v" THEN CALL paramVariety(varVal);
+
