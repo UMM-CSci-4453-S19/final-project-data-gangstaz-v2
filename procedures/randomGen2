@@ -1,0 +1,51 @@
+This is a more generalized version of randomGen that can take in a SQL statement which will
+tell the procedure which table to select from.
+
+"paramTable" is a table (not temporary table) that has to be created by the user before calling this method...
+The table also needs a new index for us to use in the procedure...
+
+Example:
+
+CREATE TABLE paramTable SELECT * FROM taster
+JOIN wineReviews ON tasterFk=tasterId
+JOIN location ON locFk=locId
+WHERE country = "France";
+
+ALTER tABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+DROP PROCEDURE IF EXISTS randomGen2;
+
+DELIMITER //
+CREATE PROCEDURE randomGen2(IN cnt INT)
+
+BEGIN
+  DROP TEMPORARY TABLE IF EXISTS randTable;
+  CREATE TEMPORARY TABLE randTable ( randId INT );
+
+loop_me: LOOP
+    IF cnt < 1 THEN
+      LEAVE loop_me;
+    END IF;
+
+    INSERT INTO randTable
+       SELECT paramTable.randId
+         FROM paramTable JOIN
+              (SELECT (RAND() *
+                            (SELECT MAX(randId)
+                               FROM paramTable)) AS randId)
+               AS temp
+        WHERE paramTable.randId >= temp.randId
+        ORDER BY paramTable.randId ASC
+        LIMIT 1;
+
+    SET cnt = cnt - 1;
+  END LOOP loop_me;
+END//
+
+DELIMITER ;
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

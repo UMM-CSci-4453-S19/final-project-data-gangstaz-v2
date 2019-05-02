@@ -1,3 +1,6 @@
+
+*** randomGen2 is preferred over this function ***
+
 This procedure takes one input (cnt) which determines how many random number to generate
 (within the range of IDs in the wine reviews table).
 
