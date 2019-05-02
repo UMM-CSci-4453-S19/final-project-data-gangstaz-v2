@@ -29,6 +29,9 @@ function WineCtrl($scope, wineApi) {
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
     $scope.reviews = [];
+    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+
+    var loading = false;
 
     function getReviewArray() {
         wineApi.getReviews()
@@ -39,12 +42,6 @@ function WineCtrl($scope, wineApi) {
                 console.log(error);
             })
     }
-
-    getReviewArray();
-
-
-    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
-    var loading = false;
 
     function isLoading(){
         return loading;
@@ -93,6 +90,10 @@ function WineCtrl($scope, wineApi) {
                 loading = false;
             });
     }
+
+    getReviewArray();
+
+
 }
 
 function wineApi($http,apiUrl) {
