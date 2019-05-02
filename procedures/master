@@ -1,9 +1,12 @@
+This procedure combines all paramTable creating procedure and random number generating procedures
 
 
-DROP PROCEDURE IF EXISTS master;
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+DROP PROCEDURE IF EXISTS randMaster;
 
 DELIMITER //
-CREATE PROCEDURE paramCountry(IN varType TEXT, IN varVal TEXT)
+CREATE PROCEDURE randMaster(IN varType TEXT, IN varVal TEXT, IN randInt INT)
 
 BEGIN
 
@@ -13,3 +16,12 @@ ELSEIF varType = "t" THEN CALL paramTaster(varVal);
 
 ELSEIF varType = "v" THEN CALL paramVariety(varVal);
 
+END IF;
+
+CALL randomGen2(randINT);
+
+select * from paramTable, randTable where paramTable.randId = randTable.randId;
+
+END; //
+
+DELIMITER ;
