@@ -39,14 +39,67 @@ function WineCtrl($scope, wineApi) {
 
     getReviewArray();
 
+
+    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+    var loading = false;
+
+    function isLoading(){
+        return loading;
+    }
+
+    function refreshVarieties(){
+        loading=true;
+        $scope.errorMessage='';
+        wineApi.getVarieties()
+            .success(function(data){
+                $scope.varieties=data;
+                loading=false;
+            })
+            .error(function () {
+                $scope.errorMessage="Unable to load Reviews:  Database request failed";
+                loading=false;
+            });
+    }
+
+    function refreshReviews(){
+        loading=true;
+        $scope.errorMessage='';
+        wineApi.getReviews()
+            .success(function(data){
+                $scope.reviews=data;
+                loading=false;
+            })
+            .error(function () {
+                $scope.errorMessage="Unable to load Reviews:  Database request failed";
+                loading=false;
+            });
+    }
+
+    function searchReviews(){
+        // navigate back to the home page
+        $location.path('/');
+        console.log($scope.searchRegex+$scope.variety+$scope.vintage+$scope.continent);
+        loading = true;
+        wineApi.getSearch($scope.searchRegex,$scope.variety,$scope.vintage,$scope.continent)
+            .success(function(data){
+                $scope.reviews=data;
+                loading = false;
+            })
+            .error(function () {
+                $scope.errorMessage="unable to load search: Database request failed";
+                loading = false;
+            });
+    }
 }
 
 function wineApi($http,apiUrl) {
     return {
-        getReviews: function(){
-            var url = apiUrl + '/reviews';
+        // get a random set of reviews for the main page
+        getReviews: function() {
+            var url = apiUrl +'/reviews';
             return $http.get(url);
         },
+
         // get list of varieties
         getVarieties: function(){
             var url = apiUrl + '/varieties';

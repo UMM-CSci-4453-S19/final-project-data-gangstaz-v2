@@ -19,7 +19,7 @@
 
 <body ng-app="wine">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-xl navbar-light bg-light" ng-controller="wineCtrl" >
     <a class="navbar-brand" href="#">Gangsta Wine Reviews</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,45 +51,44 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <div class="dropdown" style="padding-right: 0.5rem">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Variety
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Rosa</a>
-                <a class="dropdown-item" href="#">Syrah</a>
-                <a class="dropdown-item" href="#">White Blend</a>
-            </div>
-        </div>
 
-        <div class="dropdown" style="padding-right: 0.5rem">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Vintage
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Pre 2000's</a>
-                <a class="dropdown-item" href="#">2000-2009</a>
-                <a class="dropdown-item" href="#">2010's</a>
-            </div>
-        </div>
-
-        <div class="dropdown" style="padding-right: 0.5rem">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Continent
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">North America</a>
-                <a class="dropdown-item" href="#">South America</a>
-                <a class="dropdown-item" href="#">Europe</a>
-                <a class="dropdown-item" href="#">Africa</a>
-                <a class="dropdown-item" href="#">Asia</a>
-                <a class="dropdown-item" href="#">Australia</a>
-            </div>
-        </div>
 
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <div class="dropdown" style="padding-right: 0.5rem" ng-model="variety">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Variety
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety}}</a>
+                </div>
+            </div>
+
+            <div class="dropdown" style="padding-right: 0.5rem" ng-model="vintage">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Vintage
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" value="1900s">Pre 2000's</a>
+                    <a class="dropdown-item" href="#" value="2000a">2000-2009</a>
+                    <a class="dropdown-item" href="#" value="2010a">2010's</a>
+                </div>
+            </div>
+
+            <div class="dropdown" style="padding-right: 0.5rem">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Continent
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ng-model="continent">
+                    <a class="dropdown-item" href="#" value="North America">North America</a>
+                    <a class="dropdown-item" href="#" value="South America">South America</a>
+                    <a class="dropdown-item" href="#" value="Europe">Europe</a>
+                    <a class="dropdown-item" href="#" value="Africa">Africa</a>
+                    <a class="dropdown-item" href="#" value="Asia">Asia</a>
+                    <a class="dropdown-item" href="#" value="Australia">Australia</a>
+                </div>
+            </div>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchRegex">
+            <button class="btn btn-outline-success" type="button" ng-click="searchReviews();">Search</button>
         </form>
     </div>
 </nav>
