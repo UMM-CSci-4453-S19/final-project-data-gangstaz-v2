@@ -17,6 +17,9 @@ app.config(function($routeProvider) {
         .when("/value", {
             templateUrl : "value.html"
         })
+        .when("/pagination", {
+            templateUrl : "pag_index.html"
+        })
         .when("/search", {
             templateUrl : "search.html"
         });

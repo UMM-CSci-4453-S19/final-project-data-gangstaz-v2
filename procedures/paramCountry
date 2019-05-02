@@ -1,0 +1,24 @@
+
+This populates the paramTable with a selected country's wines
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+DROP PROCEDURE IF EXISTS paramCountry;
+
+DELIMITER //
+CREATE PROCEDURE paramCountry(IN countryIN TEXT)
+
+BEGIN
+  DROP TABLE IF EXISTS paramTable;
+
+  CREATE TABLE paramTable SELECT * FROM taster
+  JOIN wineReviews ON tasterFk=tasterId
+  JOIN location ON locFk=locId
+  WHERE country = countryIN;
+
+  ALTER tABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
+
+END//
+
+DELIMITER ;
