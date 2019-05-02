@@ -10,6 +10,7 @@
 var dropDownSQL = "";
 var anyTermSQL= "";
 
+// This is the function that returns the query you send to the database
 function buildSearchQuery (variety, vintage, continent, searchTerm) {
 
     // If search term is not provided, just make it blank.
@@ -29,7 +30,7 @@ function buildSearchQuery (variety, vintage, continent, searchTerm) {
     return( dropDownSQL + anyTermSQL );
 }
 
-
+// This is a helper function that deal with dropdown menu stuff
 function dropDownSearch(variety, vintage, continent, searchTerm) {
 
     if(vintage === "pre2k"){
@@ -61,6 +62,7 @@ function dropDownSearch(variety, vintage, continent, searchTerm) {
     console.log("anyTerm = " + anyTermSQL);
 }
 
+// This is a helper function that deals with text search terms
 function anyTermSearch(searchTerm) {
     anyTermSQL += "description LIKE '%" + searchTerm + "%' OR " +
         "designation LIKE '%" + searchTerm + "%' OR " +
