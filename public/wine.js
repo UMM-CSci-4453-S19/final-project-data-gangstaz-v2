@@ -36,7 +36,8 @@ function WineCtrl($scope, wineApi) {
     function getReviewArray() {
         wineApi.getReviews()
             .then(function (success) {
-                $scope.reviews = success.data;
+                $scope.reviews = success.data[0];
+                console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
