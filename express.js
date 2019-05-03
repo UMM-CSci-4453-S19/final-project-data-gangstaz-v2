@@ -26,4 +26,18 @@ app.get("/reviews",function(req,res){
     }})(res));
 });
 
+app.get("/varieties",function(req,res){
+    var sql = 'select distinct variety from dataGangstas.wineReviews;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.listen(port);
