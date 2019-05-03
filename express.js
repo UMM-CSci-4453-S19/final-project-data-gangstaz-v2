@@ -2,7 +2,8 @@ var express=require('express'),
     mysql=require('mysql'),
     credentials=require('./credentials.json'),
     app = express(),
-    port = process.env.PORT || 1337;
+    port = process.env.PORT || 1337,
+    search=require('./wine_search.js');
 
 credentials.host='ids.morris.umn.edu'; //setup database credentials
 
@@ -50,6 +51,26 @@ app.get("/continents",function(req,res){
         }
         else {
             res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/search",function(req,res){
+    var variety = req.param("variety");
+    var vintage = req.param("vintage");
+    var continent = req.param("continent");
+    var searchTerm = req.param("searchTerm");
+    
+    var sql = search.buildSearchQuery(variety, vintage, continent, searchTerm);
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+            console.log(rows)
         }
     }})(res));
 });
