@@ -55,36 +55,24 @@
 
         <form class="form-inline my-2 my-lg-0">
 
-            <div class="dropdown" style="padding-right: 0.5rem" ng-model="variety">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="varietyDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Variety
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety.variety}}</button>
-                </div>
-            </div>
+            <select class="btn" style="margin-right: 0.5rem" ng-model="variety">
+                <option value="">Variety</option>
+                <option value="{{variety.variety}}" ng-repeat="variety in varieties">{{variety.variety}}</option>
+            </select>
 
-            <div class="dropdown" style="padding-right: 0.5rem" ng-model="vintage">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="vintageDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Vintage
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" href="#" value="1900s">Pre 2000's</button>
-                    <button class="dropdown-item" href="#" value="2000a">2000-2009</button>
-                    <button class="dropdown-item" href="#" value="2010a">2010's</button>
-                </div>
-            </div>
+            <select class="btn" style="margin-right: 0.5rem" ng-model="vintage">
+                <option value="">Vintage</option>
+                <option value="1900s">Pre 2000's</option>
+                <option value="2000s">2000-2009</option>
+                <option value="2010s">2010's</option>
+            </select>
 
-            <div class="dropdown" style="padding-right: 0.5rem">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="continentDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Continent
-                </button>
-                <div class="dropdown-menu" aria-labelledby="continentDropdownMenuButton" ng-model="continent">
-                    <button class="dropdown-item" href="#" ng-repeat="continent in continents">{{continent.continent}}</button>
-                </div>
-            </div>
+            <select class="btn" style="margin-right: 0.5rem">
+                <option value="">Continent</option>
+                <option value="{{continent.continent}}" ng-repeat="continent in continents">{{continent.continent}}</option>
+            </select>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchRegex">
-            <button class="btn btn-outline-success" type="button" ng-click="searchReviews();">Search</button>
+            <button class="btn btn-success" type="button" ng-click="searchReviews();">Search</button>
         </form>
     </div>
 </nav>
