@@ -27,28 +27,40 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#!featured">Featured</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#!countries">Countries</a>
-            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Explore
-                </a>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="countryDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Countries
+                </button>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <button class="dropdown-item" href="#!varieties">By Variety</button>
-                    <button class="dropdown-item" href="#!value">By Value</button>
-                    <button class="dropdown-item" href="#!countries">By Country</button>
-                    <button class="dropdown-item" href="#!tasters">By Taster</button>
+                    <a class="dropdown-item" href="#!countryList">(list of each county, link to random 100 from each)</a>
+                    <a class="dropdown-item" href="#!countryHighRated">Highest Rated</a>
+                    <a class="dropdown-item" href="#!countryBestValue">Best Value</a>
+                    <a class="dropdown-item" href="#!countryExpensive">Most Expensive</a>
+                    <a class="dropdown-item" href="#!countryCheap">Cheapest</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+            <li class="nav-item dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="varietyDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Variety
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#!varietiesList">(list of each variety, link to random 100 from each)</a>
+                    <a class="dropdown-item" href="#!varietiesHighRated">Highest Rated</a>
+                    <a class="dropdown-item" href="#!varietiesBestValue">Best Value</a>
+                    <a class="dropdown-item" href="#!varietiesExpensive">Most Expensive</a>
+                    <a class="dropdown-item" href="#!varietiesCheap">Cheapest</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="overallDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Overall
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#!overallHighRated">Highest Rated</a>
+                    <a class="dropdown-item" href="#!overallBestValue">Best Value</a>
+                    <a class="dropdown-item" href="#!overallExpensive">Most Expensive</a>
+                    <a class="dropdown-item" href="#!overallCheap">Cheapeast</a>
+                </div>
             </li>
         </ul>
 

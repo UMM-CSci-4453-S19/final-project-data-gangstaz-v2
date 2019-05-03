@@ -3,6 +3,64 @@ var app = angular.module('wine',["ngRoute"])
     .factory('wineApi',wineApi)
     .constant('apiUrl','http://localhost:1337');
 
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/", {
+            templateUrl : "main.html"
+        })
+        //countries
+        .when("/countryList", {
+            templateUrl : "./country/countryList.html"
+        })
+        .when("/countryHighRated", {
+            templateUrl : "./country/countryHighRated.html"
+        })
+        .when("/countryBestValue", {
+            templateUrl : "./country/countryBestValue.html"
+        })
+        .when("/countryExpensive", {
+            templateUrl : "./country/countryExpensive.html"
+        })
+        .when("/countryCheap", {
+            templateUrl : "./country/countryCheap.html"
+        })
+        //variety
+        .when("/varietyList", {
+            templateUrl : "./variety/varietyList.html"
+        })
+        .when("/varietyHighRated", {
+            templateUrl : "./variety/varietyHighRated.html"
+        })
+        .when("/varietyBestValue", {
+            templateUrl : "./variety/varietyBestValue.html"
+        })
+        .when("/varietyExpensive", {
+            templateUrl : "./variety/varietyExpensive.html"
+        })
+        .when("/varietyCheap", {
+            templateUrl : "./variety/varietyCheap.html"
+        })
+        //overall
+        .when("/overallHighRated", {
+            templateUrl : "./overall/overallHighRated.html"
+        })
+        .when("/overallBestValue", {
+            templateUrl : "./overall/overallBestValue.html"
+        })
+        .when("/overallExpensive", {
+            templateUrl : "./overall/overallExpensive.html"
+        })
+        .when("/overallCheap", {
+            templateUrl : "./overall/overallCheap.html"
+        })
+
+        .when("/search", {
+            templateUrl : "search.html"
+        });
+});
+
+
+
 function WineCtrl($scope, wineApi) {
 
     this.$onInit = function() {
@@ -150,24 +208,3 @@ function wineApi($http,apiUrl) {
     };
 }
 
-app.config(function($routeProvider) {
-    $routeProvider
-        .when("/", {
-            templateUrl : "main.html"
-        })
-        .when("/featured", {
-            templateUrl : "featured.html"
-        })
-        .when("/countries", {
-            templateUrl : "countries.html"
-        })
-        .when("/value", {
-            templateUrl : "value.html"
-        })
-        .when("/pagination", {
-            templateUrl : "pag_index.html"
-        })
-        .when("/search", {
-            templateUrl : "search.html"
-        });
-});
