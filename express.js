@@ -13,7 +13,7 @@ connection.connect(function(err){if(err){console.log(err)}});
 app.use(express.static(__dirname + '/public'));
 
 app.get("/reviews",function(req,res){
-    var sql = 'call dataGangstas.randMaster(null, null, 100)';
+    var sql = 'call dataGangstas.randMaster(null, null, 100);';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
