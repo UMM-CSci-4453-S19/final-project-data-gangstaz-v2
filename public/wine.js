@@ -26,10 +26,17 @@ app.config(function($routeProvider) {
 });
 
 function WineCtrl($scope, wineApi) {
+
+    this.$onInit = function() {
+        refreshVarieties();
+        getReviewArray();
+        console.log("init");
+    };
+
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
     $scope.reviews = [];
-    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+    $scope.varieties = ['Rosa', 'Syra', 'White Blend'];
 
     var loading = false;
 
@@ -88,9 +95,6 @@ function WineCtrl($scope, wineApi) {
                 loading = false;
             });
     }
-
-    getReviewArray();
-    refreshVarieties();
 
 }
 
