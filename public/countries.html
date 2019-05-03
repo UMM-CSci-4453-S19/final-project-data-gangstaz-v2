@@ -15,15 +15,17 @@
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
                 <div class="col-lg-4" ng-repeat="review in reviews">
                     <div class="card mb-4 shadow-sm">
+
+                        <div class="card-header">
+                            <h6>
+                                <span class="badge badge-success">{{review.points}}</span>
+                                {{review.variety}}
+                            </h6>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{review.title}}</h5>
                             <p class="card-text">{{review.description}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">{{review.taster.name}}</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary"><a target="_blank" href="http://twitter.com/{{review.taster.twitter}}">{{review.taster.twitter}}</a></button>
-                                </div>
-                                <small class="text-muted">{{review.points}}/100 &nbsp; ${{review.price}}</small>
+                                <small class="text-muted">${{review.price}}</small>
                             </div>
                         </div>
                     </div>
