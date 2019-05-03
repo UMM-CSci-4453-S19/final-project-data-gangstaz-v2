@@ -51,15 +51,10 @@ function dropDownSearch(variety, vintage, continent, searchTerm) {
 
     if(continent){
         dropDownSQL += "continent = " + "'" + continent + "'" + " AND ";
-        console.log("Adding to DDS....value = " + dropDownSQL)
     } else {
         anyTermSQL += "continent LIKE '%" + searchTerm + "%' OR ";
-        console.log("Adding to anyTerm....value = " + anyTermSQL)
     }
 
-    console.log("dropDownSearch complete");
-    console.log("DDS = " + dropDownSQL);
-    console.log("anyTerm = " + anyTermSQL);
 }
 
 // This is a helper function that deals with text search terms
