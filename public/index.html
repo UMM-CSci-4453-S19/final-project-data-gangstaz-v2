@@ -41,10 +41,10 @@
                     Explore
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#!varieties">By Variety</a>
-                    <a class="dropdown-item" href="#!value">By Value</a>
-                    <a class="dropdown-item" href="#!countries">By Country</a>
-                    <a class="dropdown-item" href="#!tasters">By Taster</a>
+                    <button class="dropdown-item" href="#!varieties">By Variety</button>
+                    <button class="dropdown-item" href="#!value">By Value</button>
+                    <button class="dropdown-item" href="#!countries">By Country</button>
+                    <button class="dropdown-item" href="#!tasters">By Taster</button>
                 </div>
             </li>
             <li class="nav-item">
@@ -54,37 +54,38 @@
 
 
         <form class="form-inline my-2 my-lg-0">
+
             <div class="dropdown" style="padding-right: 0.5rem" ng-model="variety">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="varietyDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Variety
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety}}</a>
+                    <button class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety}}</button>
                 </div>
             </div>
 
             <div class="dropdown" style="padding-right: 0.5rem" ng-model="vintage">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="vintageDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Vintage
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" value="1900s">Pre 2000's</a>
-                    <a class="dropdown-item" href="#" value="2000a">2000-2009</a>
-                    <a class="dropdown-item" href="#" value="2010a">2010's</a>
+                    <button class="dropdown-item" href="#" value="1900s">Pre 2000's</button>
+                    <button class="dropdown-item" href="#" value="2000a">2000-2009</button>
+                    <button class="dropdown-item" href="#" value="2010a">2010's</button>
                 </div>
             </div>
 
             <div class="dropdown" style="padding-right: 0.5rem">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="continentDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Continent
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ng-model="continent">
-                    <a class="dropdown-item" href="#" value="North America">North America</a>
-                    <a class="dropdown-item" href="#" value="South America">South America</a>
-                    <a class="dropdown-item" href="#" value="Europe">Europe</a>
-                    <a class="dropdown-item" href="#" value="Africa">Africa</a>
-                    <a class="dropdown-item" href="#" value="Asia">Asia</a>
-                    <a class="dropdown-item" href="#" value="Australia">Australia</a>
+                <div class="dropdown-menu" aria-labelledby="continentDropdownMenuButton" ng-model="continent">
+                    <button class="dropdown-item" href="#" value="North America">North America</button>
+                    <button class="dropdown-item" href="#" value="South America">South America</button>
+                    <button class="dropdown-item" href="#" value="Europe">Europe</button>
+                    <button class="dropdown-item" href="#" value="Africa">Africa</button>
+                    <button class="dropdown-item" href="#" value="Asia">Asia</button>
+                    <button class="dropdown-item" href="#" value="Australia">Australia</button>
                 </div>
             </div>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchRegex">
