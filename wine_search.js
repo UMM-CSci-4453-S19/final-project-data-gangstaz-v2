@@ -19,7 +19,7 @@ module.exports = {
             searchTerm = "";
         }
 
-        dropDownSQL = "select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where ";
+        dropDownSQL = "select * from dataGangstas.taster join dataGangstas.wineReviews on tasterFk=tasterId join dataGangstas.location on locFk=locId where ";
         anyTermSQL = "(";
 
         dropDownSearch(variety, vintage, continent, searchTerm);

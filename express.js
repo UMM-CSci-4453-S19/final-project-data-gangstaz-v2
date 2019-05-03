@@ -60,7 +60,7 @@ app.get("/search",function(req,res){
     var vintage = req.param("vintage");
     var continent = req.param("continent");
     var searchTerm = req.param("searchTerm");
-    
+
     var sql = search.buildSearchQuery(variety, vintage, continent, searchTerm);
 
     connection.query(sql,(function(res){return function(err,rows,fields){
@@ -70,7 +70,6 @@ app.get("/search",function(req,res){
         }
         else {
             res.send(rows);
-            console.log(rows)
         }
     }})(res));
 });
