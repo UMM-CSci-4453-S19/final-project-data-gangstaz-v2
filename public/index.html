@@ -60,7 +60,7 @@
                     Variety
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety}}</button>
+                    <button class="dropdown-item" href="#" ng-repeat="variety in varieties">{{variety.variety}}</button>
                 </div>
             </div>
 
@@ -80,12 +80,7 @@
                     Continent
                 </button>
                 <div class="dropdown-menu" aria-labelledby="continentDropdownMenuButton" ng-model="continent">
-                    <button class="dropdown-item" href="#" value="North America">North America</button>
-                    <button class="dropdown-item" href="#" value="South America">South America</button>
-                    <button class="dropdown-item" href="#" value="Europe">Europe</button>
-                    <button class="dropdown-item" href="#" value="Africa">Africa</button>
-                    <button class="dropdown-item" href="#" value="Asia">Asia</button>
-                    <button class="dropdown-item" href="#" value="Australia">Australia</button>
+                    <button class="dropdown-item" href="#" ng-repeat="continent in continents">{{continent.continent}}</button>
                 </div>
             </div>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchRegex">
