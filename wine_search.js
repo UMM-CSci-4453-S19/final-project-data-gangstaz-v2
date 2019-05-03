@@ -8,32 +8,34 @@
 // vintage values:    Pre 2000's (pre2k), 2000-2009 (2ks), 2010's (2010s)
 
 var dropDownSQL = "";
-var anyTermSQL= "";
+var anyTermSQL = "";
 
-// This is the function that returns the query you send to the database
-function buildSearchQuery (variety, vintage, continent, searchTerm) {
+module.exports = {
+    // This is the function that returns the query you send to the database
+    buildSearchQuery: function (variety, vintage, continent, searchTerm) {
 
-    // If search term is not provided, just make it blank.
-    if(!searchTerm) {
-        searchTerm = "";
+        // If search term is not provided, just make it blank.
+        if (!searchTerm) {
+            searchTerm = "";
+        }
+
+        dropDownSQL = "select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where ";
+        anyTermSQL = "(";
+
+        dropDownSearch(variety, vintage, continent, searchTerm);
+        anyTermSearch(searchTerm);
+
+        anyTermSQL += ");";
+
+        // Finally, return the final SQL search query.
+        return ( dropDownSQL + anyTermSQL );
     }
-
-    dropDownSQL = "select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId where ";
-    anyTermSQL = "(";
-
-    dropDownSearch(variety, vintage, continent, searchTerm);
-    anyTermSearch(searchTerm);
-
-    anyTermSQL += ");";
-
-    // Finally, return the final SQL search query.
-    return( dropDownSQL + anyTermSQL );
-}
+};
 
 // This is a helper function that deal with dropdown menu stuff
 function dropDownSearch(variety, vintage, continent, searchTerm) {
 
-    if(vintage === "pre2k"){
+    if (vintage === "pre2k") {
         dropDownSQL += "vintage < 2000 AND ";
     } else if (vintage === "2ks") {
         dropDownSQL += "vintage >= 2000 AND vintage < 2010 AND ";
@@ -41,7 +43,7 @@ function dropDownSearch(variety, vintage, continent, searchTerm) {
         dropDownSQL += "vintage >= 2010 AND ";
     }
 
-    if(variety){
+    if (variety) {
         dropDownSQL += "variety = " + "'" + variety + "'" + " AND ";
         console.log("Adding to DDS....value = " + dropDownSQL)
     } else {
@@ -49,7 +51,7 @@ function dropDownSearch(variety, vintage, continent, searchTerm) {
         console.log("Adding to anyTerm....value = " + anyTermSQL)
     }
 
-    if(continent){
+    if (continent) {
         dropDownSQL += "continent = " + "'" + continent + "'" + " AND ";
     } else {
         anyTermSQL += "continent LIKE '%" + searchTerm + "%' OR ";
@@ -73,7 +75,5 @@ function anyTermSearch(searchTerm) {
     }
 
 };
-
-
 
 
