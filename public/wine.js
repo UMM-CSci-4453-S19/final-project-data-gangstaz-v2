@@ -26,10 +26,19 @@ app.config(function($routeProvider) {
 });
 
 function WineCtrl($scope, wineApi) {
+
+    this.$onInit = function() {
+        refreshVarieties();
+        getReviewArray();
+        getContinents();
+        console.log("init");
+    };
+
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
     $scope.reviews = [];
-    $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+    $scope.varieties = [];
+    $scope.continents = [];
 
     var loading = false;
 
@@ -48,33 +57,41 @@ function WineCtrl($scope, wineApi) {
         return loading;
     }
 
-    function refreshVarieties(){
-        loading=true;
-        $scope.errorMessage='';
+    function refreshVarieties() {
         wineApi.getVarieties()
-            .success(function(data){
-                $scope.varieties=data;
-                loading=false;
+            .then(function (success) {
+                $scope.varieties = success.data;
+                console.log(success)
             })
-            .error(function () {
-                $scope.errorMessage="Unable to load Reviews:  Database request failed";
-                loading=false;
-            });
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
-    function refreshReviews(){
-        loading=true;
-        $scope.errorMessage='';
-        wineApi.getReviews()
-            .success(function(data){
-                $scope.reviews=data;
-                loading=false;
+    function getContinents() {
+        wineApi.getContinents()
+            .then(function (success) {
+                $scope.continents = success.data;
+                console.log(success)
             })
-            .error(function () {
-                $scope.errorMessage="Unable to load Reviews:  Database request failed";
-                loading=false;
-            });
+            .catch(function (error) {
+                console.log(error);
+            })
     }
+
+    // function refreshReviews(){
+    //     loading=true;
+    //     $scope.errorMessage='';
+    //     wineApi.getReviews()
+    //         .success(function(data){
+    //             $scope.reviews=data;
+    //             loading=false;
+    //         })
+    //         .error(function () {
+    //             $scope.errorMessage="Unable to load Reviews:  Database request failed";
+    //             loading=false;
+    //         });
+    // }
 
     function searchReviews(){
         // navigate back to the home page
@@ -92,9 +109,6 @@ function WineCtrl($scope, wineApi) {
             });
     }
 
-    getReviewArray();
-
-
 }
 
 function wineApi($http,apiUrl) {
@@ -108,6 +122,12 @@ function wineApi($http,apiUrl) {
         // get list of varieties
         getVarieties: function(){
             var url = apiUrl + '/varieties';
+            return $http.get(url);
+        },
+
+        // get list of continents
+        getContinents: function(){
+            var url = apiUrl + '/continents';
             return $http.get(url);
         },
 
