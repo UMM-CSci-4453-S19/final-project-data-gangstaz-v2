@@ -27,64 +27,51 @@ app.config(function($routeProvider) {
 
 function WineCtrl($scope, wineApi) {
     // $scope stuff and functions go here
-    $scope.reviews = [
-        {
-            taster: {
-                name: 'Roger Voss',
-                twitter: '@vossroger'
-            },
-            title: 'Demetria 2010 RosÃ© (Santa Ynez Valley)',
-            description: 'Bubblegummy and fresh in acidity, this rosÃ© tastes like a young Beaujolais, with strawberry ' +
-            'and raspberry fruit. It\'s an enjoyable wine to wash down little tapas plates of olives, ham, salted nuts.',
-            points: 87,
-            price: 20
-
-        },
-        {
-            taster: {
-                name: 'Michael Schachner',
-                twitter: '@wineschach'
-            },
-            title: 'Segura Viudas NV Extra Dry Sparkling (Cava)',
-            description: '\"Baked plum, exotic spice and chocolate aromas almost jump out of the glass. The brawny palat' +
-            'e doles out prune, blackberry jam, licorice and tobacco alongside round, velvety tannins. A raisin note backs up the finish.\"',
-            points: 86,
-            price: 10
-        }];
+    $scope.getReviewArray = getReviewArray;
+    $scope.reviews = [];
     $scope.varieties = ['Rosa', 'Syra', 'White Blend', 'Nic McPhee'];
+
     var loading = false;
+
+    function getReviewArray() {
+        wineApi.getReviews()
+            .then(function (success) {
+                $scope.reviews = success.data[0];
+                console.log(success)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
     function isLoading(){
         return loading;
     }
 
-    function refreshVarieties(){
-        loading=true;
-        $scope.errorMessage='';
+    function refreshVarieties() {
         wineApi.getVarieties()
-            .success(function(data){
-                $scope.varieties=data;
-                loading=false;
+            .then(function (success) {
+                $scope.varieties = success.data[0];
+                console.log(success)
             })
-            .error(function () {
-                $scope.errorMessage="Unable to load Reviews:  Database request failed";
-                loading=false;
-            });
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
-    function refreshReviews(){
-        loading=true;
-        $scope.errorMessage='';
-        wineApi.getReviews()
-            .success(function(data){
-                $scope.reviews=data;
-                loading=false;
-            })
-            .error(function () {
-                $scope.errorMessage="Unable to load Reviews:  Database request failed";
-                loading=false;
-            });
-    }
+    // function refreshReviews(){
+    //     loading=true;
+    //     $scope.errorMessage='';
+    //     wineApi.getReviews()
+    //         .success(function(data){
+    //             $scope.reviews=data;
+    //             loading=false;
+    //         })
+    //         .error(function () {
+    //             $scope.errorMessage="Unable to load Reviews:  Database request failed";
+    //             loading=false;
+    //         });
+    // }
 
     function searchReviews(){
         // navigate back to the home page
@@ -101,6 +88,10 @@ function WineCtrl($scope, wineApi) {
                 loading = false;
             });
     }
+
+    getReviewArray();
+    refreshVarieties();
+
 }
 
 function wineApi($http,apiUrl) {
