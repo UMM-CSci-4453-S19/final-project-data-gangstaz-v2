@@ -27,7 +27,21 @@ app.get("/reviews",function(req,res){
 });
 
 app.get("/varieties",function(req,res){
-    var sql = 'select distinct variety from dataGangstas.wineReviews;';
+    var sql = 'select distinct variety from dataGangstas.wineReviews order by variety;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/continents",function(req,res){
+    var sql = 'select distinct continent from dataGangstas.location order by continent;';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
