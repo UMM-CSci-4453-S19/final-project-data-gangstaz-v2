@@ -40,6 +40,7 @@ function WineCtrl($scope, wineApi) {
 
     $scope.varieties = [];
     $scope.continents = [];
+    $scope.searchResults = [];
 
     $scope.getFromCountries = getFromCountries;
     $scope.specificCountry = 'Argentina';
@@ -51,7 +52,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getReviews()
             .then(function (success) {
                 $scope.reviews = success.data[0];
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -66,7 +67,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getVarieties()
             .then(function (success) {
                 $scope.varieties = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -77,7 +78,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getContinents()
             .then(function (success) {
                 $scope.continents = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -166,17 +167,20 @@ function WineCtrl($scope, wineApi) {
 
     // needs to be "scoped" to work for some reason...
     $scope.searchReviews = function searchReviews(){
-        console.log($scope.searchRegex);
-        loading = true;
-        wineApi.getSearch($scope.searchRegex,$scope.variety,$scope.vintage,$scope.continent)
+        // don't do anything if nothing has been changed
+        if(!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
+            return;
+        }
+        wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
             .then(function(success){
-                $scope.reviews=success.data[0];
-                loading = false;
+                $scope.reviews = success.data;
+                // console.log($scope.reviews[0]);
+
             })
-            .catch(function () {
-                $scope.errorMessage="unable to load search: Database request failed";
-                loading = false;
+            .catch(function (error) {
+                console.log(error);
             });
+
     }
 
 }
@@ -232,16 +236,19 @@ function wineApi($http,apiUrl) {
         },
 
         // search based on input from the search bar
-        getSearch: function(searchRegex,variety,vintage,continent){
-            var url = apiUrl + '/search?regex=' + searchRegex;
-            if(variety) {
-                url += '&variety=' + variety;
+        getSearch: function(searchTerm,variety,vintage,continent){
+            var url = apiUrl + '/search?';
+            if(searchTerm && searchTerm != "") {
+                url += 'searchTerm=' + searchTerm + '&';
             }
-            if(vintage) {
-                url += '&vintage=' + vintage;
+            if(variety && variety != "") {
+                url += 'variety=' + variety + '&';
             }
-            if(continent) {
-                url += '&vintage=' + continent;
+            if(vintage && vintage != "") {
+                url += 'vintage=' + vintage + '&';
+            }
+            if(continent && continent != "") {
+                url += 'continent=' + continent;
             }
             return $http.get(url);
         },

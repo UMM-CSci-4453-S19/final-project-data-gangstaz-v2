@@ -17,9 +17,9 @@
 
 </head>
 
-<body ng-app="wine">
+<body ng-app="wine" ng-controller="wineCtrl">
 
-<nav class="navbar navbar-expand-xl navbar-light bg-light" ng-controller="wineCtrl" >
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
     <a class="navbar-brand" href="#">Gangsta Wine Reviews</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -68,23 +68,23 @@
         <form class="form-inline my-2 my-lg-0">
 
             <select class="btn" style="margin-right: 0.5rem" ng-model="variety">
-                <option value="">Variety</option>
+                <option selected value="">Variety</option>
                 <option value="{{variety.variety}}" ng-repeat="variety in varieties">{{variety.variety}}</option>
             </select>
 
             <select class="btn" style="margin-right: 0.5rem" ng-model="vintage">
-                <option value="">Vintage</option>
-                <option value="1900s">Pre 2000's</option>
-                <option value="2000s">2000-2009</option>
+                <option selected value="">Vintage</option>
+                <option value="pre2k">Pre 2000's</option>
+                <option value="2ks">2000-2009</option>
                 <option value="2010s">2010's</option>
             </select>
 
-            <select class="btn" style="margin-right: 0.5rem">
-                <option value="">Continent</option>
+            <select class="btn" style="margin-right: 0.5rem" ng-model="continent">
+                <option selected value="">Continent</option>
                 <option value="{{continent.continent}}" ng-repeat="continent in continents">{{continent.continent}}</option>
             </select>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchRegex">
-            <button class="btn btn-success" type="button" ng-click="searchReviews();">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchTerm">
+            <a class="btn btn-success" href="#!/" ng-click="searchReviews();">Search</a>
         </form>
     </div>
 </nav>
