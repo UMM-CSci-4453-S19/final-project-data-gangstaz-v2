@@ -9,7 +9,6 @@ function WineCtrl($scope, wineApi) {
         refreshVarieties();
         getReviewArray();
         getContinents();
-        // $scope.searchReviews();
         getCountries();
         getFromCountries();
         getHighestRated();
@@ -41,12 +40,11 @@ function WineCtrl($scope, wineApi) {
 
     $scope.varieties = [];
     $scope.continents = [];
+    $scope.searchResults = [];
 
     $scope.getFromCountries = getFromCountries;
     $scope.specificCountry = 'Argentina';
     $scope.specificCountryDetails = [];
-    $scope.searchResults = [];
-
 
     var loading = false;
 
