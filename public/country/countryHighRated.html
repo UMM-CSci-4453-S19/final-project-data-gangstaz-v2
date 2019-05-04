@@ -13,20 +13,20 @@
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="review in reviews">
+                <div class="col-lg-4" ng-repeat="country in countriesHighestRated">
                     <div class="card mb-4 shadow-sm">
 
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">{{review.points}}</span>
-                                {{review.variety}}
+                                <span class="badge badge-success">{{country.max}}</span>
+                                {{country.country}} ({{country.province}})
                             </h6>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{review.description}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">${{review.price}}</small>
+                                <small class="text-muted">{{country.winery}} {{country.vintage}} {{country.variety}}</small>
                             </div>
+                            <p class="card-text">{{country.description}}</p>
                         </div>
                     </div>
                 </div>

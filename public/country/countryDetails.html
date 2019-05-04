@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">{{}} (WIP)</h1>
+        <h1 class="">(WIP)</h1>
         <p class="lead">All countries represented.</p>
     </div>
 
@@ -13,12 +13,13 @@
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="c in countries">
+                <div class="col-lg-4" ng-repeat="c in specificCountryDetails">
                     <div class="card mb-4 shadow-sm">
-                        <a href="{{}}"><div class="card-body">
-                            <h1 class="card-title">{{c.country}}</h1>
-                            <h3>Wines: {{c.count}}</h3>
-                        </div></a>
+                        <div class="card-body">
+                            <h3>{{c.winery}}'s {{c.vintage}} {{c.variety}}</h3>
+                            <h4>({{c.province}})</h4>
+                            <p class="card-title">{{c.description}}</p>
+                        </div>
                     </div>
                 </div>
 
