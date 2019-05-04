@@ -163,9 +163,6 @@ app.config(function($routeProvider) {
         .when("/", {
             templateUrl : "main.html"
         })
-        .when("/search", {
-            templateUrl : "search.html"
-        })
         //countries
         .when("/countryList", {
             templateUrl : "./country/countryList.html"
