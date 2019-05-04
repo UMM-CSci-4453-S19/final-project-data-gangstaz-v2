@@ -34,7 +34,7 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    function isLoading(){
+    $scope.isLoading = function isLoading(){
         return loading;
     }
 
@@ -85,17 +85,16 @@ function WineCtrl($scope, wineApi) {
     //         });
     // }
 
-    function searchReviews(){
-        // navigate back to the home page
-        $location.path('/');
-        console.log($scope.searchRegex+$scope.variety+$scope.vintage+$scope.continent);
+    // needs to be "scoped" to work for some reason...
+    $scope.searchReviews = function searchReviews(){
+        console.log($scope.searchRegex);
         loading = true;
         wineApi.getSearch($scope.searchRegex,$scope.variety,$scope.vintage,$scope.continent)
-            .success(function(data){
-                $scope.reviews=data;
+            .then(function(success){
+                $scope.reviews=success.data[0];
                 loading = false;
             })
-            .error(function () {
+            .catch(function () {
                 $scope.errorMessage="unable to load search: Database request failed";
                 loading = false;
             });
