@@ -9,14 +9,23 @@ function WineCtrl($scope, wineApi) {
         refreshVarieties();
         getReviewArray();
         getContinents();
+        // $scope.searchReviews();
+        getCountries();
+        getFromCountries();
         console.log("init");
     };
 
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
+    $scope.getCountries = getCountries;
+    $scope.getFromCountries = getFromCountries;
     $scope.reviews = [];
     $scope.varieties = [];
     $scope.continents = [];
+    $scope.searchResults = [];
+    $scope.countries = [];
+    $scope.country = 'country';
+    $scope.countrySelect = '';
 
     var loading = false;
 
@@ -24,7 +33,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getReviews()
             .then(function (success) {
                 $scope.reviews = success.data[0];
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -39,7 +48,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getVarieties()
             .then(function (success) {
                 $scope.varieties = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -50,11 +59,33 @@ function WineCtrl($scope, wineApi) {
         wineApi.getContinents()
             .then(function (success) {
                 $scope.continents = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    function getCountries() {
+        wineApi.getType($scope.country)
+            .then(function (success) {
+                $scope.countries = success.data;
+                console.log(success);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    // function getFromCountries() {
+    //     wineApi.getFromCountry($scope.countrySelect)
+    //         .then(function (success) {
+    //             $scope.countries = success.data;
+    //             console.log(success);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
     }
 
     // function refreshReviews(){
@@ -75,15 +106,18 @@ function WineCtrl($scope, wineApi) {
     $scope.searchReviews = function searchReviews(){
         // don't do anything if nothing has been changed
         if(!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
-             return;
+            return;
         }
         wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
             .then(function(success){
-                $scope.reviews=success.data[0];
+                $scope.reviews = success.data;
+                // console.log($scope.reviews[0]);
+
             })
             .catch(function (error) {
                 console.log(error);
             });
+
     }
 
 }
@@ -108,6 +142,12 @@ function wineApi($http,apiUrl) {
             return $http.get(url);
         },
 
+        // get list of the type searched by and how many wines there are by each distinct type
+        getType: function(type){
+            var url = apiUrl + '/listAllOfType?type=' + type;
+            return $http.get(url);
+        },
+
         // search based on input from the search bar
         getSearch: function(searchTerm,variety,vintage,continent){
             var url = apiUrl + '/search?';
@@ -128,7 +168,7 @@ function wineApi($http,apiUrl) {
 
         // filter by country
         getFromCountry: function(country){
-            var url = apiUrl + '/countries?filter=' + country;
+            var url = apiUrl + '/countries?country=' + country;
             return $http.get(url);
         },
 
@@ -173,6 +213,9 @@ app.config(function($routeProvider) {
         })
         .when("/countryCheap", {
             templateUrl : "./country/countryCheap.html"
+        })
+        .when("/countryDetails", {
+            templateUrl : "./country/countryDetails.html"
         })
         //variety
         .when("/varietyList", {

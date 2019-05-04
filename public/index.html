@@ -17,9 +17,9 @@
 
 </head>
 
-<body ng-app="wine">
+<body ng-app="wine" ng-controller="wineCtrl">
 
-<nav class="navbar navbar-expand-xl navbar-light bg-light" ng-controller="wineCtrl" >
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
     <a class="navbar-brand" href="#">Gangsta Wine Reviews</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -79,12 +79,12 @@
                 <option value="2010s">2010's</option>
             </select>
 
-            <select class="btn" style="margin-right: 0.5rem">
+            <select class="btn" style="margin-right: 0.5rem" ng-model="continent">
                 <option selected value="">Continent</option>
                 <option value="{{continent.continent}}" ng-repeat="continent in continents">{{continent.continent}}</option>
             </select>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="searchTerm">
-            <button class="btn btn-success" type="button" ng-click="searchReviews();">Search</button>
+            <a class="btn btn-success" href="#!/" ng-click="searchReviews();">Search</a>
         </form>
     </div>
 </nav>
