@@ -72,7 +72,67 @@ app.get("/listAllOfType",function(req,res){
 
 app.get("/countries",function(req,res){
     var country = req.param('country');
-    var sql = 'Select description, designation, points, price, variety, winery, vintage from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
+    var sql = 'Select description, designation, points, price, variety, winery, vintage, province from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/highestRated",function(req,res){
+    var type = req.param('type');
+    var sql = 'Select country, description, variety, winery, vintage, province, max(points) as max from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/highestPrice",function(req,res){
+    var type = req.param('type');
+    var sql = 'Select country, description, variety, winery, vintage, province, max(price) as maxPrice from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/lowestPrice",function(req,res){
+    var type = req.param('type');
+    var sql = 'Select country, description, variety, winery, vintage, province, min(price) as minPrice from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/bestValue",function(req,res){
+    var type = req.param('type');
+    var sql = 'Select country, description, variety, winery, vintage, province, points, price, max(points/price) as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
