@@ -9,14 +9,17 @@ function WineCtrl($scope, wineApi) {
         refreshVarieties();
         getReviewArray();
         getContinents();
+        getCountries();
         console.log("init");
     };
 
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
+    $scope.getCountries = getCountries;
     $scope.reviews = [];
     $scope.varieties = [];
     $scope.continents = [];
+    $scope.countries = [];
 
     var loading = false;
 
@@ -51,6 +54,17 @@ function WineCtrl($scope, wineApi) {
             .then(function (success) {
                 $scope.continents = success.data;
                 console.log(success)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getCountries() {
+        wineApi.getCountries()
+            .then(function (success) {
+                $scope.countries = success.data;
+                console.log(success);
             })
             .catch(function (error) {
                 console.log(error);
@@ -106,6 +120,12 @@ function wineApi($http,apiUrl) {
         // get list of continents
         getContinents: function(){
             var url = apiUrl + '/continents';
+            return $http.get(url);
+        },
+
+        // get list of continents
+        getCountries: function(){
+            var url = apiUrl + '/countries';
             return $http.get(url);
         },
 
