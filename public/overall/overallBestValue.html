@@ -1,8 +1,8 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Overall (WIP)</h1>
-        <p class="lead">Nothing but the best rated bootleg wine reviews.</p>
+        <h1 class="">Best Value</h1>
+        <p class="lead">The best valued bootleg wines.</p>
     </div>
 
 
@@ -13,24 +13,21 @@
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="review in reviews">
+                <div class="col-lg-4" ng-repeat="wine in countriesBestValue">
                     <div class="card mb-4 shadow-sm">
-                        <!--<img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22328%22%20height%3D%22226%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20328%20226%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16a241c3248%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16a241c3248%22%3E%3Crect%20width%3D%22328%22%20height%3D%22226%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110.078125%22%20y%3D%22120.2%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">-->
+
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">{{review.points}}</span>
-                                {{review.vintage}} {{review.variety}}
+                                <span class="badge badge-success">{{wine.points}} points for only ${{wine.price}}</span>
+                                <br>
+                                {{wine.country}} ({{wine.province}})
                             </h6>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">{{review.description}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" disabled>{{review.name}}</button>
-                                    <a ng-show="review.twitter" role="button" class="btn btn-sm btn-outline-primary" target="_blank" href="http://twitter.com/{{review.twitter}}">{{review.twitter}}</a>
-                                </div>
-                                <small class="text-muted">${{review.price}}</small>
+                                <small class="text-muted">{{wine.winery}} {{wine.vintage}} {{wine.variety}}</small>
                             </div>
+                            <p class="card-text">{{wine.description}}</p>
                         </div>
                     </div>
                 </div>
