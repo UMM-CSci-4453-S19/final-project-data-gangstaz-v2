@@ -9,6 +9,7 @@ function WineCtrl($scope, wineApi) {
         refreshVarieties();
         getReviewArray();
         getContinents();
+        // $scope.searchReviews();
         console.log("init");
     };
 
@@ -17,6 +18,7 @@ function WineCtrl($scope, wineApi) {
     $scope.reviews = [];
     $scope.varieties = [];
     $scope.continents = [];
+    $scope.searchResults = [];
 
     var loading = false;
 
@@ -24,7 +26,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getReviews()
             .then(function (success) {
                 $scope.reviews = success.data[0];
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -39,7 +41,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getVarieties()
             .then(function (success) {
                 $scope.varieties = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -50,7 +52,7 @@ function WineCtrl($scope, wineApi) {
         wineApi.getContinents()
             .then(function (success) {
                 $scope.continents = success.data;
-                console.log(success)
+                // console.log(success)
             })
             .catch(function (error) {
                 console.log(error);
@@ -75,15 +77,18 @@ function WineCtrl($scope, wineApi) {
     $scope.searchReviews = function searchReviews(){
         // don't do anything if nothing has been changed
         if(!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
-             return;
+            return;
         }
         wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
             .then(function(success){
-                $scope.reviews=success.data[0];
+                $scope.reviews = success.data;
+                // console.log($scope.reviews[0]);
+
             })
             .catch(function (error) {
                 console.log(error);
             });
+
     }
 
 }
@@ -157,6 +162,9 @@ app.config(function($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl : "main.html"
+        })
+        .when("/search", {
+            templateUrl : "search.html"
         })
         //countries
         .when("/countryList", {

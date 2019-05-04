@@ -63,6 +63,8 @@ app.get("/search",function(req,res){
 
     var sql = search.buildSearchQuery(variety, vintage, continent, searchTerm);
 
+    console.log('Attempting SQL: --->' + sql + '<---');
+
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
             console.log(err);
