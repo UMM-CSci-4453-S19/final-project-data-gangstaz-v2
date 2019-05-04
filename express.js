@@ -55,6 +55,20 @@ app.get("/continents",function(req,res){
     }})(res));
 });
 
+app.get("/countries",function(req,res){
+    var sql = 'Select count(id) as count, country from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by country;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.get("/search",function(req,res){
     var variety = req.param("variety");
     var vintage = req.param("vintage");
