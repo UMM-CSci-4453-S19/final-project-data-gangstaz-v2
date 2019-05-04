@@ -110,14 +110,17 @@ function wineApi($http,apiUrl) {
 
         // search based on input from the search bar
         getSearch: function(searchTerm,variety,vintage,continent){
-            var url = apiUrl + '/search?searchTerm=' + searchTerm;
-            if(variety) {
+            var url = apiUrl + '/search';
+            if(searchTerm && searchTerm != "") {
+                url += '?searchTerm=' + searchTerm;
+            }
+            if(variety && variety != "") {
                 url += '&variety=' + variety;
             }
-            if(vintage) {
+            if(vintage && vintage != "") {
                 url += '&vintage=' + vintage;
             }
-            if(continent) {
+            if(continent && continent != "") {
                 url += '&vintage=' + continent;
             }
             return $http.get(url);
