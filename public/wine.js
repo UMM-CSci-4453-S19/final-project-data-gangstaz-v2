@@ -10,16 +10,20 @@ function WineCtrl($scope, wineApi) {
         getReviewArray();
         getContinents();
         getCountries();
+        getFromCountries();
         console.log("init");
     };
 
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
     $scope.getCountries = getCountries;
+    $scope.getFromCountries = getFromCountries;
     $scope.reviews = [];
     $scope.varieties = [];
     $scope.continents = [];
     $scope.countries = [];
+    $scope.country = 'country';
+    $scope.countrySelect = '';
 
     var loading = false;
 
@@ -61,7 +65,7 @@ function WineCtrl($scope, wineApi) {
     }
 
     function getCountries() {
-        wineApi.getCountries()
+        wineApi.getType($scope.country)
             .then(function (success) {
                 $scope.countries = success.data;
                 console.log(success);
@@ -69,6 +73,17 @@ function WineCtrl($scope, wineApi) {
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    // function getFromCountries() {
+    //     wineApi.getFromCountry($scope.countrySelect)
+    //         .then(function (success) {
+    //             $scope.countries = success.data;
+    //             console.log(success);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
     }
 
     // function refreshReviews(){
@@ -122,9 +137,9 @@ function wineApi($http,apiUrl) {
             return $http.get(url);
         },
 
-        // get list of continents
-        getCountries: function(){
-            var url = apiUrl + '/countries';
+        // get list of the type searched by and how many wines there are by each distinct type
+        getType: function(type){
+            var url = apiUrl + '/listAllOfType?type=' + type;
             return $http.get(url);
         },
 
@@ -145,7 +160,7 @@ function wineApi($http,apiUrl) {
 
         // filter by country
         getFromCountry: function(country){
-            var url = apiUrl + '/countries?filter=' + country;
+            var url = apiUrl + '/countries?country=' + country;
             return $http.get(url);
         },
 
@@ -190,6 +205,9 @@ app.config(function($routeProvider) {
         })
         .when("/countryCheap", {
             templateUrl : "./country/countryCheap.html"
+        })
+        .when("/countryDetails", {
+            templateUrl : "./country/countryDetails.html"
         })
         //variety
         .when("/varietyList", {

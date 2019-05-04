@@ -55,8 +55,24 @@ app.get("/continents",function(req,res){
     }})(res));
 });
 
+app.get("/listAllOfType",function(req,res){
+    var type = req.param('type');
+    var sql = 'Select count(id) as count, ' + type + ' from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by '  + type + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.get("/countries",function(req,res){
-    var sql = 'Select count(id) as count, country from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by country;';
+    var country = req.param('country');
+    var sql = 'Select description, designation, points, price, variety, winery, vintage from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
