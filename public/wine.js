@@ -121,7 +121,7 @@ function wineApi($http,apiUrl) {
                 url += 'vintage=' + vintage + '&';
             }
             if(continent && continent != "") {
-                url += 'vintage=' + continent;
+                url += 'continent=' + continent;
             }
             return $http.get(url);
         },
