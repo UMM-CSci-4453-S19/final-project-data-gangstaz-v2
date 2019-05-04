@@ -33,7 +33,7 @@ function WineCtrl($scope, wineApi) {
 
     $scope.isLoading = function isLoading(){
         return loading;
-    }
+    };
 
     function refreshVarieties() {
         wineApi.getVarieties()
@@ -73,15 +73,15 @@ function WineCtrl($scope, wineApi) {
 
     // needs to be "scoped" to work for some reason...
     $scope.searchReviews = function searchReviews(){
-        console.log($scope.searchRegex);
+        console.log($scope.vintage);
         loading = true;
-        wineApi.getSearch($scope.searchRegex,$scope.variety,$scope.vintage,$scope.continent)
+        wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
             .then(function(success){
                 $scope.reviews=success.data[0];
                 loading = false;
             })
-            .catch(function () {
-                $scope.errorMessage="unable to load search: Database request failed";
+            .catch(function (error) {
+                console.log(error);
                 loading = false;
             });
     }
@@ -109,8 +109,8 @@ function wineApi($http,apiUrl) {
         },
 
         // search based on input from the search bar
-        getSearch: function(searchRegex,variety,vintage,continent){
-            var url = apiUrl + '/search?regex=' + searchRegex;
+        getSearch: function(searchTerm,variety,vintage,continent){
+            var url = apiUrl + '/search?searchTerm=' + searchTerm;
             if(variety) {
                 url += '&variety=' + variety;
             }
