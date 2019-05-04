@@ -73,16 +73,16 @@ function WineCtrl($scope, wineApi) {
 
     // needs to be "scoped" to work for some reason...
     $scope.searchReviews = function searchReviews(){
-        console.log($scope.vintage);
-        loading = true;
+        // don't do anything if nothing has been changed
+        if(!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
+             return;
+        }
         wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
             .then(function(success){
                 $scope.reviews=success.data[0];
-                loading = false;
             })
             .catch(function (error) {
                 console.log(error);
-                loading = false;
             });
     }
 
@@ -110,18 +110,18 @@ function wineApi($http,apiUrl) {
 
         // search based on input from the search bar
         getSearch: function(searchTerm,variety,vintage,continent){
-            var url = apiUrl + '/search';
+            var url = apiUrl + '/search?';
             if(searchTerm && searchTerm != "") {
-                url += '?searchTerm=' + searchTerm;
+                url += 'searchTerm=' + searchTerm + '&';
             }
             if(variety && variety != "") {
-                url += '&variety=' + variety;
+                url += 'variety=' + variety + '&';
             }
             if(vintage && vintage != "") {
-                url += '&vintage=' + vintage;
+                url += 'vintage=' + vintage + '&';
             }
             if(continent && continent != "") {
-                url += '&vintage=' + continent;
+                url += 'vintage=' + continent;
             }
             return $http.get(url);
         },
