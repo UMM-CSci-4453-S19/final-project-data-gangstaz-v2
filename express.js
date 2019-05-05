@@ -72,7 +72,7 @@ app.get("/listAllOfType",function(req,res){
 
 app.get("/countries",function(req,res){
     var country = req.param('country');
-    var sql = 'Select description, designation, points, price, variety, winery, vintage, province from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
+    var sql = 'Select country, description, designation, points, price, variety, winery, vintage, province from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
@@ -88,21 +88,6 @@ app.get("/countries",function(req,res){
 app.get("/highestRated",function(req,res){
     var type = req.param('type');
     var sql = 'Select country, description, variety, winery, vintage, province, max(points) as max from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
-
-    connection.query(sql,(function(res){return function(err,rows,fields){
-        if(err) {
-            console.log(err);
-            res.send(err); // Let the upstream guy know how it went
-        }
-        else {
-            res.send(rows);
-        }
-    }})(res));
-});
-
-app.get("/highestPriceCountry",function(req,res){
-    var type = req.param('type');
-    var sql = 'CALL dataGangstas.aggMaster("max", "price", "country");';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
@@ -162,6 +147,20 @@ app.get("/bestValue",function(req,res){
 
 app.get("/highestPriceOverall",function(req,res){
     var sql = 'CALL dataGangstas.aggMaster("max", "price", null);';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/highestPriceCountry",function(req,res){
+    var sql = 'CALL dataGangstas.aggMaster("max", "price", "country");';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
