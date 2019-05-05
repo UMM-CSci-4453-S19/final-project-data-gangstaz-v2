@@ -1,0 +1,29 @@
+<main role="main" class="container">
+
+    <div class="jumbotron  text-center">
+        <h1 class="">Varieties (WIP)</h1>
+        <p class="lead">All varieties represented.</p>
+    </div>
+
+
+    <!-- Cards -->
+    <div class="album py-5 bg-light" ng-controller="wineCtrl">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Use ng-repeat on this to repeat it for each wine review we show -->
+                <div class="col-lg-4" ng-repeat="c in countries">
+                    <div class="card mb-4 shadow-sm">
+                        <a href="#!countryDetails"><div class="card-body">
+                            <h1 class="card-title">{{c.country}}</h1>
+                            <h3>Wines: {{c.count}}</h3>
+                        </div></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
