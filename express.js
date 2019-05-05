@@ -114,9 +114,9 @@ app.get("/highestPriceCountry",function(req,res){
     }})(res));
 });
 
-app.get("/lowestPrice",function(req,res){
+app.get("/highestPriceCountry",function(req,res){
     var type = req.param('type');
-    var sql = 'Select country, description, variety, winery, vintage, province, min(price) as minPrice from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
+    var sql = 'CALL dataGangstas.aggMaster("max", "price", "country");';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
@@ -186,7 +186,7 @@ app.get("/highestRatedVariety",function(req,res){
 });
 
 app.get("/bestValueVariety",function(req,res){
-    var sql = 'Select *, points/price as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by variety order by value desc;';
+    var sql = 'Select *, max(points/price) as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by variety order by value desc;';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
