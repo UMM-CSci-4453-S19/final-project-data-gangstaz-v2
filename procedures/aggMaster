@@ -1,0 +1,45 @@
+Explanation: if you want to get the maximum priced wines by country...
+
+CALL aggMaster("max", "price", "country")
+
+If you just want to get the max price from the whole data set.... (it's limited to 10)
+
+CALL aggMaster("max", "price", NULL);
+
+This works with points, varieties, or other aggregate functions (MIN, AVG, etc.)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DROP PROCEDURE IF EXISTS aggMaster;
+
+DELIMITER //
+CREATE PROCEDURE aggMaster(IN aggFxnIN TEXT, IN aggVarIN TEXT, IN groupVarIN TEXT)
+
+BEGIN
+
+  IF groupVarIN IS NULL THEN
+
+    IF LOWER(aggFxnIN) = "max" THEN
+      set @orderVar = "desc";
+    ELSE
+      set @orderVar = "asc";
+    END IF;
+
+    set @aggQuery = CONCAT("SELECT * FROM bigJoin ORDER BY ", aggVarIN, " ", @orderVar, " LIMIT 10");
+
+  ELSE
+
+  set @aggQuery = CONCAT("SELECT * FROM bigJoin INNER JOIN (select ",
+    groupVarIN, ", ", aggFxnIn, "(", aggVarIN, ") ", "as aggColumn ",
+    "from bigJoin group by ", groupVarIN, ") as temp ON (bigJoin.", groupVarIN,
+    " = temp.", groupVarIN, " AND bigJoin.", aggVarIN, " = temp.aggColumn) order by bigJoin.", groupVarIN);
+
+  END IF;
+
+  PREPARE stmt from @aggQuery;
+
+  execute stmt;
+
+END//
+
+DELIMITER ;
