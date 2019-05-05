@@ -145,6 +145,34 @@ app.get("/bestValue",function(req,res){
     }})(res));
 });
 
+app.get("/bestValueOverall",function(req,res){
+    var sql = 'Select *, points/price as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where points > 87 order by value desc limit 10;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/cheapestPriceOverall",function(req,res){
+    var sql = 'CALL dataGangstas.aggMaster("min", "price", null);';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.get("/highestPriceOverall",function(req,res){
     var sql = 'CALL dataGangstas.aggMaster("max", "price", null);';
 
@@ -175,34 +203,6 @@ app.get("/highestPriceCountry",function(req,res){
 
 app.get("/highestRatedOverall",function(req,res){
     var sql = 'CALL dataGangstas.aggMaster("max", "points", null);';
-
-    connection.query(sql,(function(res){return function(err,rows,fields){
-        if(err) {
-            console.log(err);
-            res.send(err); // Let the upstream guy know how it went
-        }
-        else {
-            res.send(rows);
-        }
-    }})(res));
-});
-
-app.get("/bestValueOverall",function(req,res){
-    var sql = 'Select *, points/price as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where points > 87 order by value desc limit 10;';
-
-    connection.query(sql,(function(res){return function(err,rows,fields){
-        if(err) {
-            console.log(err);
-            res.send(err); // Let the upstream guy know how it went
-        }
-        else {
-            res.send(rows);
-        }
-    }})(res));
-});
-
-app.get("/cheapestPriceOverall",function(req,res){
-    var sql = 'CALL dataGangstas.aggMaster("min", "price", null);';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
