@@ -18,10 +18,11 @@
                         <div class="card-header">
                             <h6>
                                 <span class="badge badge-success">{{review.points}}</span>
+                                {{review.vintage}} {{review.variety}}
                                 {{review.designation}} {{review.vintage}} {{review.variety}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
-                                    {{review.province}}, {{review.country}}
+                                    <span ng-show="{{review.province.length>0}}">{{review.province}},</span> {{review.country}}
                                     <div ng-show="{{review.region.length>0}}">({{review.region}})</div>
                                 </div>
                             </h6>

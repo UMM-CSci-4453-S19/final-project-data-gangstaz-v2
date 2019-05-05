@@ -1,8 +1,8 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Highest Cost by Country (WIP)</h1>
-        <p class="lead">The most costly wine each country has to offer.</p>
+        <h1 class="">Lowest Cost by Variety</h1>
+        <p class="lead">The least costly of each variety.</p>
     </div>
 
 
@@ -13,24 +13,24 @@
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="country in countriesHighestPrice">
+                <div class="col-lg-4" ng-repeat="variety in varietyCheapestPrice">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">{{country.points}}</span>
-                                {{country.designation}} {{country.vintage}} {{country.variety}}
+                                <span class="badge badge-success">{{variety.points}}</span>
+                                {{variety.designation}} {{variety.vintage}} {{variety.variety}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
-                                    <span ng-show="{{country.province.length>0}}">{{country.province}},</span> {{country.country}}
-                                    <div ng-show="{{country.region.length>0}}">({{country.region}})</div>
+                                    {{variety.province}}, {{variety.country}}
+                                    <div ng-show="{{variety.region.length>0}}">({{variety.region}})</div>
                                 </div>
                             </h6>
                         </div>
                         <div class="card-body">
+                            <p class="card-text">{{variety.description}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{country.winery}} {{country.vintage}} {{country.variety}}</small>
+                                <small class="text-muted">${{variety.price}}</small>
                             </div>
-                            <p class="card-text">{{country.description}}</p>
                         </div>
                     </div>
                 </div>
