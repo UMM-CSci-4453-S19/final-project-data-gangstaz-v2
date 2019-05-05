@@ -19,7 +19,7 @@
                             <h6>
                                 <span class="badge badge-success">{{c.points}}</span>
                                 {{c.vintage}} {{c.variety}}
-                                {{c.designation}} {{c.vintage}} {{c.variety}}
+                                {{c.designation}} {{c.variety}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
                                     <span ng-show="{{c.province.length>0}}">{{c.province}}</span>
@@ -30,10 +30,6 @@
                         <div class="card-body">
                             <p class="card-text">{{c.description}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" disabled>{{c.name}}</button>
-                                    <a ng-show="c.twitter" role="button" class="btn btn-sm btn-outline-primary" target="_blank" href="http://twitter.com/{{c.twitter}}">{{c.twitter}}</a>
-                                </div>
                                 <small class="text-muted">${{c.price}}</small>
                             </div>
                         </div>
