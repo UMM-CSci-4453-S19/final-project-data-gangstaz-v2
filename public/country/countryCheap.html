@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Cheapest Wine by Country (logic done, make like main.html)</h1>
+        <h1 class="">Cheapest Wine by Country (DC)</h1>
         <p class="lead">The cheapest wine each country has to offer.</p>
     </div>
 
@@ -15,18 +15,22 @@
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
                 <div class="col-lg-4" ng-repeat="country in countriesCheapestPrice">
                     <div class="card mb-4 shadow-sm">
-
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">${{country.aggColumn}}</span>
-                                {{country.country}} ({{country.province}})
+                                <span class="badge badge-success">{{country.points}}</span>
+                                {{country.designation}} {{country.vintage}} {{country.variety}}
+                                <br/>
+                                <div style="font-style: italic; font-family: 'GFS Artemisia'">
+                                    <span ng-show="{{country.province.length>0}}">{{country.province}}, </span>{{country.country}}
+                                    <div ng-show="{{country.region.length>0}}">({{country.region}})</div>
+                                </div>
                             </h6>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{country.winery}} {{country.vintage}} {{country.variety}}</small>
-                            </div>
                             <p class="card-text">{{country.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${{country.price}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>

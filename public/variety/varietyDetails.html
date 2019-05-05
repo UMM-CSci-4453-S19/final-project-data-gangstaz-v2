@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">{{this.specificVariety}}</h1>
+        <h1 class="">{{this.specificVariety}} (DC)</h1>
         <p class="lead">Browse some of the finest {{this.specificVariety}} wines.</p>
     </div>
 
@@ -19,10 +19,10 @@
                             <h6>
                                 <span class="badge badge-success">{{v.points}}</span>
                                 {{v.vintage}} {{v.variety}}
-                                {{v.designation}} {{v.vintage}} {{v.variety}}
+                                {{v.designation}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
-                                    <span ng-show="{{v.province.length>0}}">{{v.province}}</span>
+                                    <span ng-show="{{v.province.length>0}}">{{v.province}}, </span>{{v.country}}
                                     <div ng-show="{{v.region.length>0}}">({{v.region}})</div>
                                 </div>
                             </h6>

@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Highest Cost by Country (logic done, make like main.html)</h1>
+        <h1 class="">Highest Cost by Country (DC)</h1>
         <p class="lead">The most costly wine each country has to offer.</p>
     </div>
 
@@ -21,16 +21,16 @@
                                 {{country.designation}} {{country.vintage}} {{country.variety}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
-                                    <span ng-show="{{country.province.length>0}}">{{country.province}},</span> {{country.country}}
+                                    <span ng-show="{{country.province.length>0}}">{{country.province}}, </span>{{country.country}}
                                     <div ng-show="{{country.region.length>0}}">({{country.region}})</div>
                                 </div>
                             </h6>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{country.winery}} {{country.vintage}} {{country.variety}}</small>
-                            </div>
                             <p class="card-text">{{country.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${{country.price}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>

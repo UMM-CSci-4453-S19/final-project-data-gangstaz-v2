@@ -1,7 +1,7 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Highest Cost by Variety</h1>
+        <h1 class="">Highest Cost by Variety (DC)</h1>
         <p class="lead">The most costly of each variety.</p>
     </div>
 
@@ -21,7 +21,7 @@
                                 {{variety.designation}} {{variety.vintage}} {{variety.variety}}
                                 <br/>
                                 <div style="font-style: italic; font-family: 'GFS Artemisia'">
-                                    {{variety.province}}, {{variety.country}}
+                                    <span ng-show="{{variety.province.length>0}}">{{variety.province}}, </span>{{variety.country}}
                                     <div ng-show="{{variety.region.length>0}}">({{variety.region}})</div>
                                 </div>
                             </h6>
