@@ -85,9 +85,9 @@ app.get("/countries",function(req,res){
     }})(res));
 });
 
-app.get("/highestRated",function(req,res){
+app.get("/highestRatedCountry",function(req,res){
     var type = req.param('type');
-    var sql = 'Select country, description, variety, winery, vintage, province, max(points) as max from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by ' + type + ';';
+    var sql = 'CALL dataGangstas.aggMaster("max", "points", "country");';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
