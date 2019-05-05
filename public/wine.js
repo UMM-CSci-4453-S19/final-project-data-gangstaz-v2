@@ -1,11 +1,11 @@
 var app = angular.module('wine',["ngRoute"])
-    .controller('wineCtrl',WineCtrl)
-    .factory('wineApi',wineApi)
+    .controller('wineCtrl', WineCtrl)
+    .factory('wineApi', wineApi)
     .constant('apiUrl','http://localhost:1337');
 
 function WineCtrl($scope, wineApi) {
 
-    this.$onInit = function() {
+    this.$onInit = function () {
         refreshVarieties();
         getReviewArray();
         getContinents();
@@ -35,7 +35,7 @@ function WineCtrl($scope, wineApi) {
     $scope.getLowestPrice = getLowestPrice;
     $scope.countriesLowestPrice = [];
 
-    $scope.getBestValue= getBestValue;
+    $scope.getBestValue = getBestValue;
     $scope.countriesBestValue = [];
 
     ////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    $scope.isLoading = function isLoading(){
+    $scope.isLoading = function isLoading() {
         return loading;
     };
 
@@ -164,6 +164,7 @@ function WineCtrl($scope, wineApi) {
                 console.log(error);
             })
     }
+
     /////////////////////////////////////////////////////////////
 
     function getHighestRatedOverall() {
@@ -199,8 +200,6 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    function getFromCountries() {
-        wineApi.getFromCountry($scope.specificCountry)
     function getFromCountries(country) {
         wineApi.getFromCountry(country)
             .then(function (success) {
@@ -213,28 +212,15 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    // function refreshReviews(){
-    //     loading=true;
-    //     $scope.errorMessage='';
-    //     wineApi.getReviews()
-    //         .success(function(data){
-    //             $scope.reviews=data;
-    //             loading=false;
-    //         })
-    //         .error(function () {
-    //             $scope.errorMessage="Unable to load Reviews:  Database request failed";
-    //             loading=false;
-    //         });
-    // }
 
     // needs to be "scoped" to work for some reason...
-    $scope.searchReviews = function searchReviews(){
+    $scope.searchReviews = function searchReviews() {
         // don't do anything if nothing has been changed
-        if(!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
+        if (!$scope.searchTerm && !$scope.variety && !$scope.vintage && !$scope.continent) {
             return;
         }
-        wineApi.getSearch($scope.searchTerm,$scope.variety,$scope.vintage,$scope.continent)
-            .then(function(success){
+        wineApi.getSearch($scope.searchTerm, $scope.variety, $scope.vintage, $scope.continent)
+            .then(function (success) {
                 $scope.reviews = success.data;
                 // console.log($scope.reviews[0]);
 
@@ -247,121 +233,121 @@ function WineCtrl($scope, wineApi) {
 
 }
 
-function wineApi($http,apiUrl) {
+function wineApi($http, apiUrl) {
     return {
         // get a random set of reviews for the main page
-        getReviews: function() {
-            var url = apiUrl +'/reviews';
+        getReviews: function () {
+            var url = apiUrl + '/reviews';
             return $http.get(url);
         },
 
         // get list of varieties
-        getVarieties: function(){
+        getVarieties: function () {
             var url = apiUrl + '/varieties';
             return $http.get(url);
         },
 
         // get list of continents
-        getContinents: function(){
+        getContinents: function () {
             var url = apiUrl + '/continents';
             return $http.get(url);
         },
 
         // get list of the type searched by and how many wines there are by each distinct type
-        getType: function(type){
+        getType: function (type) {
             var url = apiUrl + '/listAllOfType?type=' + type;
             return $http.get(url);
         },
 
         // get highest rated wine from each distinct type
-        getHighestRated: function(type){
+        getHighestRated: function (type) {
             var url = apiUrl + '/highestRated?type=' + type;
             return $http.get(url);
         },
 
         // get highest rated wine from each distinct type
-        getLowestPrice: function(type){
+        getLowestPrice: function (type) {
             var url = apiUrl + '/lowestPrice?type=' + type;
             return $http.get(url);
         },
 
         // get highest rated wine from each distinct type
-        getBestValue: function(type){
+        getBestValue: function (type) {
             var url = apiUrl + '/bestValue?type=' + type;
             return $http.get(url);
         },
 
         ////////////////////////////////////////////////////
         // get highest priced wine overall
-        getHighestPriceOverall: function(){
+        getHighestPriceOverall: function () {
             var url = apiUrl + '/highestPriceOverall';
             return $http.get(url);
         },
 
         // get highest rated wine from each distinct type
-        getHighestPriceCountry: function(){
+        getHighestPriceCountry: function () {
             var url = apiUrl + '/highestPriceCountry';
             return $http.get(url);
         },
         ////////////////////////////////////////////////////
 
         // get highest rated wine overall
-        getHighestRatedOverall: function(){
+        getHighestRatedOverall: function () {
             var url = apiUrl + '/highestRatedOverall';
             return $http.get(url);
         },
 
         // get best valued wine overall
-        getBestValueOverall: function(){
+        getBestValueOverall: function () {
             var url = apiUrl + '/bestValueOverall';
             return $http.get(url);
         },
 
         // get cheapest priced wine overall
-        getCheapestPriceOverall: function(){
+        getCheapestPriceOverall: function () {
             var url = apiUrl + '/cheapestPriceOverall';
             return $http.get(url);
         },
 
         // search based on input from the search bar
-        getSearch: function(searchTerm,variety,vintage,continent){
+        getSearch: function (searchTerm, variety, vintage, continent) {
             var url = apiUrl + '/search?';
-            if(searchTerm && searchTerm != "") {
+            if (searchTerm && searchTerm != "") {
                 url += 'searchTerm=' + searchTerm + '&';
             }
-            if(variety && variety != "") {
+            if (variety && variety != "") {
                 url += 'variety=' + variety + '&';
             }
-            if(vintage && vintage != "") {
+            if (vintage && vintage != "") {
                 url += 'vintage=' + vintage + '&';
             }
-            if(continent && continent != "") {
+            if (continent && continent != "") {
                 url += 'continent=' + continent;
             }
             return $http.get(url);
         },
 
         // filter by country
-        getFromCountry: function(country){
+        getFromCountry: function (country) {
             var url = apiUrl + '/countries?country=' + country;
             console.log("url is: " + url);
             return $http.get(url);
         },
 
         // sort by ratio of price to score (value)
-        getValue: function() {
+        getValue: function () {
             var url = apiUrl + '/value';
             return $http.get(url);
         },
 
         // Filter by a taster
-        getTaster: function(taster){
+        getTaster: function (taster) {
             var url = apiUrl + '/taster?filter=' + taster;
             return $http.get(url);
         },
 
         // Post a user review (not finished, feature may not end up being implemented)
-        postReview: function(review) {
+        postReview: function (review) {
             var url = apiUrl + '/userReview';
             return $http.put(url);
         }
@@ -369,61 +355,63 @@ function wineApi($http,apiUrl) {
     };
 }
 
-app.config(function($routeProvider) {
+app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
-            templateUrl : "main.html"
+            templateUrl: "main.html"
         })
         //countries
         .when("/countryList", {
-            templateUrl : "./country/countryList.html"
+            templateUrl: "./country/countryList.html"
         })
         .when("/countryHighRated", {
-            templateUrl : "./country/countryHighRated.html"
+            templateUrl: "./country/countryHighRated.html"
         })
         .when("/countryBestValue", {
-            templateUrl : "./country/countryBestValue.html"
+            templateUrl: "./country/countryBestValue.html"
         })
         .when("/countryExpensive", {
-            templateUrl : "./country/countryExpensive.html"
+            templateUrl: "./country/countryExpensive.html"
         })
         .when("/countryCheap", {
-            templateUrl : "./country/countryCheap.html"
+            templateUrl: "./country/countryCheap.html"
         })
         .when("/countryDetails", {
-            templateUrl : "./country/countryDetails.html"
+            templateUrl: "./country/countryDetails.html"
         })
         //variety
         .when("/varietyList", {
-            templateUrl : "./variety/varietyList.html"
+            templateUrl: "./variety/varietyList.html"
         })
         .when("/varietyHighRated", {
-            templateUrl : "./variety/varietyHighRated.html"
+            templateUrl: "./variety/varietyHighRated.html"
         })
         .when("/varietyBestValue", {
-            templateUrl : "./variety/varietyBestValue.html"
+            templateUrl: "./variety/varietyBestValue.html"
         })
         .when("/varietyExpensive", {
-            templateUrl : "./variety/varietyExpensive.html"
+            templateUrl: "./variety/varietyExpensive.html"
         })
         .when("/varietyCheap", {
-            templateUrl : "./variety/varietyCheap.html"
+            templateUrl: "./variety/varietyCheap.html"
         })
         //overall
         .when("/overallHighRated", {
-            templateUrl : "./overall/overallHighRated.html"
+            templateUrl: "./overall/overallHighRated.html"
         })
         .when("/overallBestValue", {
-            templateUrl : "./overall/overallBestValue.html"
+            templateUrl: "./overall/overallBestValue.html"
         })
         .when("/overallExpensive", {
-            templateUrl : "./overall/overallExpensive.html"
+            templateUrl: "./overall/overallExpensive.html"
         })
         .when("/overallCheap", {
-            templateUrl : "./overall/overallCheap.html"
+            templateUrl: "./overall/overallCheap.html"
         })
 
         .when("/search", {
-            templateUrl : "search.html"
+            templateUrl: "search.html"
         });
 });
+
+
