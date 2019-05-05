@@ -1,24 +1,24 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Highest Rated by Country (WIP)</h1>
-        <p class="lead">The best each country has to offer.</p>
+        <h1 class="">Cheapest Wine by Country (logic done, make like main.html)</h1>
+        <p class="lead">The cheapest wine each country has to offer.</p>
     </div>
 
 
     <!-- Cards -->
-    <div class="album py-5 bg-light" ng-controller="wineCtrl">
+    <div class="album py-5 bg-light">
         <div class="container">
 
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="country in countriesLowestPrice">
+                <div class="col-lg-4" ng-repeat="country in countriesCheapestPrice">
                     <div class="card mb-4 shadow-sm">
 
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">${{country.minPrice}}</span>
+                                <span class="badge badge-success">${{country.aggColumn}}</span>
                                 {{country.country}} ({{country.province}})
                             </h6>
                         </div>
