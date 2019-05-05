@@ -10,6 +10,7 @@ function WineCtrl($scope, wineApi) {
         getReviewArray();
         getContinents();
         getCountries();
+        getVarieties();
         // getFromCountries();
         getHighestRated();
         getBestValue();
@@ -32,6 +33,10 @@ function WineCtrl($scope, wineApi) {
     $scope.getCountries = getCountries;
     $scope.countries = [];
     $scope.selectCountry = 'country';
+
+    $scope.getVarieties = getVarieties;
+    $scope.varietiesList = [];
+    $scope.selectVariety = 'variety';
 
     $scope.getHighestRated = getHighestRated;
     $scope.countriesHighestRated = [];
@@ -122,6 +127,16 @@ function WineCtrl($scope, wineApi) {
         wineApi.getType($scope.selectCountry)
             .then(function (success) {
                 $scope.countries = success.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getVarieties() {
+        wineApi.getType($scope.selectVariety)
+            .then(function (success) {
+                $scope.varietiesList = success.data;
             })
             .catch(function (error) {
                 console.log(error);

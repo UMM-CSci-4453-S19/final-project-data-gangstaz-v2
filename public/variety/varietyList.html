@@ -13,11 +13,11 @@
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="c in countries">
+                <div class="col-lg-4" ng-repeat="v in varietiesList">
                     <div class="card mb-4 shadow-sm">
-                        <a href="#!countryDetails"><div class="card-body">
-                            <h1 class="card-title">{{c.country}}</h1>
-                            <h3>Wines: {{c.count}}</h3>
+                        <a href="#!varietyDetails"><div class="card-body">
+                            <h1 class="card-title">{{v.variety}}</h1>
+                            <h3>Wines: {{v.count}}</h3>
                         </div></a>
                     </div>
                 </div>
