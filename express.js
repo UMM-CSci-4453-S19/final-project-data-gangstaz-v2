@@ -115,9 +115,9 @@ app.get("/highestRated",function(req,res){
     }})(res));
 });
 
-app.get("/highestPrice",function(req,res){
+app.get("/highestPriceCountry",function(req,res){
     var type = req.param('type');
-    var sql = 'CALL dataGangstas.aggMaster("max", "price", ' + type + ');';
+    var sql = 'CALL dataGangstas.aggMaster("max", "price", "country");';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
