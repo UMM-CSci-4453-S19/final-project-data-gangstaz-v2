@@ -72,7 +72,7 @@ app.get("/listAllOfType",function(req,res){
 
 app.get("/countries",function(req,res){
     var country = req.param('country');
-    var sql = 'Select country, description, designation, points, price, variety, winery, vintage, province from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where country = ' + "\'" + country + "\'" + ';';
+    var sql = 'Select country, name, twitter, description, designation, points, price, variety, winery, vintage, province from dataGangstas.taster join dataGangstas.wineReviews on tasterFk=tasterId join dataGangstas.location on locFk=locId where country = ' + "\'" + country + "\'" + ';';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
