@@ -145,6 +145,21 @@ app.get("/bestValue",function(req,res){
     }})(res));
 });
 
+app.get("/highestPriceCountry",function(req,res){
+    var type = req.param('type');
+    var sql = 'CALL dataGangstas.aggMaster("max", "price", "country");';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.get("/highestPriceVariety",function(req,res){
     var sql = 'CALL dataGangstas.aggMaster("max", "price", "variety");';
 
