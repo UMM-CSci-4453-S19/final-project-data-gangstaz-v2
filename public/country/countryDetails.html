@@ -1,24 +1,41 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">(WIP)</h1>
-        <p class="lead">All countries represented.</p>
+        <h1 class="">{{this.specificCountry}}</h1>
+        <p class="lead">The bootleg wine c site.</p>
     </div>
 
 
     <!-- Cards -->
-    <div class="album py-5 bg-light" ng-controller="wineCtrl">
+    <div class="album py-5 bg-light">
         <div class="container">
 
             <div class="row">
 
-                <!-- Use ng-repeat on this to repeat it for each wine review we show -->
+                <!-- Use ng-repeat on this to repeat it for each wine c we show -->
                 <div class="col-lg-4" ng-repeat="c in specificCountryDetails">
                     <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h6>
+                                <span class="badge badge-success">{{c.points}}</span>
+                                {{c.vintage}} {{c.variety}}
+                                {{c.designation}} {{c.vintage}} {{c.variety}}
+                                <br/>
+                                <div style="font-style: italic; font-family: 'GFS Artemisia'">
+                                    <span ng-show="{{c.province.length>0}}">{{c.province}}</span>
+                                    <div ng-show="{{c.region.length>0}}">({{c.region}})</div>
+                                </div>
+                            </h6>
+                        </div>
                         <div class="card-body">
-                            <h3>{{c.winery}}'s {{c.vintage}} {{c.variety}}</h3>
-                            <h4>({{c.province}})</h4>
-                            <p class="card-title">{{c.description}}</p>
+                            <p class="card-text">{{c.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary" disabled>{{c.name}}</button>
+                                    <a ng-show="c.twitter" role="button" class="btn btn-sm btn-outline-primary" target="_blank" href="http://twitter.com/{{c.twitter}}">{{c.twitter}}</a>
+                                </div>
+                                <small class="text-muted">${{c.price}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
