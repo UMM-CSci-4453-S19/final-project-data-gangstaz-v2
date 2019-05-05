@@ -189,7 +189,21 @@ app.get("/highestRatedOverall",function(req,res){
 });
 
 app.get("/bestValueOverall",function(req,res){
-    var sql = 'Select *, points/price as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId order by value desc limit 10;';
+    var sql = 'Select *, points/price as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId where points > 87 order by value desc limit 10;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/cheapestPriceOverall",function(req,res){
+    var sql = 'CALL dataGangstas.aggMaster("min", "price", null);';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {
