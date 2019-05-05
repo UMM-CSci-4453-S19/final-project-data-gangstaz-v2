@@ -85,6 +85,21 @@ app.get("/countries",function(req,res){
     }})(res));
 });
 
+app.get("/varietyList",function(req,res){
+    var variety = req.param('variety');
+    var sql = 'Select country, name, twitter, description, designation, points, price, variety, winery, vintage, province from dataGangstas.taster join dataGangstas.wineReviews on tasterFk=tasterId join dataGangstas.location on locFk=locId where variety = ' + "\'" + variety + "\'" + ';';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
 app.get("/highestRatedCountry",function(req,res){
     var sql = 'CALL dataGangstas.aggMaster("max", "points", "country");';
 
@@ -187,6 +202,20 @@ app.get("/highestRatedVariety",function(req,res){
 
 app.get("/bestValueVariety",function(req,res){
     var sql = 'Select *, max(points/price) as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by variety order by value desc;';
+
+    connection.query(sql,(function(res){return function(err,rows,fields){
+        if(err) {
+            console.log(err);
+            res.send(err); // Let the upstream guy know how it went
+        }
+        else {
+            res.send(rows);
+        }
+    }})(res));
+});
+
+app.get("/bestValueCountry",function(req,res){
+    var sql = 'Select *, max(points/price) as value from dataGangstas.wineReviews join dataGangstas.location on locFk = locId group by country order by value desc;';
 
     connection.query(sql,(function(res){return function(err,rows,fields){
         if(err) {

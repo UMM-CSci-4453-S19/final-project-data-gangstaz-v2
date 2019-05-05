@@ -13,12 +13,12 @@ function WineCtrl($scope, wineApi) {
         getVarieties();
         // getFromCountries();
         getHighestRatedCountry();
-        getBestValue();
         getHighestPriceCountry();
         getCheapestPriceCountry();
         getHighestPriceVariety();
         getHighestRatedVariety();
         getBestValueVariety();
+        getBestValueCountry();
         getCheapestPriceVariety();
         getHighestPriceOverall();
         getHighestRatedOverall();
@@ -39,14 +39,8 @@ function WineCtrl($scope, wineApi) {
     $scope.varietiesList = [];
     $scope.selectVariety = 'variety';
 
-    $scope.getHighestRated = getHighestRated;
-    $scope.countriesHighestRated = [];
-
     $scope.getCheapestPriceCountry = getCheapestPriceCountry;
     $scope.countriesCheapestPrice = [];
-
-    $scope.getBestValue = getBestValue;
-    $scope.countriesBestValue = [];
 
     ////////////////////////////////////////////////////////
     $scope.getHighestPriceVariety = getHighestPriceVariety;
@@ -57,6 +51,9 @@ function WineCtrl($scope, wineApi) {
 
     $scope.getBestValueVariety = getBestValueVariety;
     $scope.varietyBestValue = [];
+
+    $scope.getBestValueCountry = getBestValueCountry;
+    $scope.countryBestValue = [];
 
     $scope.getCheapestPriceVariety = getCheapestPriceVariety;
     $scope.varietyCheapestPrice = [];
@@ -135,21 +132,20 @@ function WineCtrl($scope, wineApi) {
     }
 
     function getHighestRatedCountry() {
-        wineApi.getHighestRatedCountry($scope.selectCountry)
-    function getVarieties() {
-        wineApi.getType($scope.selectVariety)
+        wineApi.getHighestRatedCountry()
             .then(function (success) {
-                $scope.varietiesList = success.data;
+                $scope.countriesHighestRated= success.data[0];
+                // console.log(success.data);
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
 
-    function getHighestRated() {
-        wineApi.getHighestRated($scope.selectCountry)
+    function getVarieties() {
+        wineApi.getType($scope.selectVariety)
             .then(function (success) {
-                $scope.countriesHighestRated = success.data[0];
+                $scope.varietiesList = success.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -161,16 +157,6 @@ function WineCtrl($scope, wineApi) {
             .then(function (success) {
                 $scope.countriesCheapestPrice = success.data[0];
                 console.log(success.data[0]);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-
-    function getBestValue() {
-        wineApi.getBestValue($scope.selectCountry)
-            .then(function (success) {
-                $scope.countriesBestValue = success.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -205,6 +191,16 @@ function WineCtrl($scope, wineApi) {
             .then(function (success) {
                 $scope.varietyBestValue = success.data;
                 // console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getBestValueCountry() {
+        wineApi.getBestValueCountry()
+            .then(function (success) {
+                $scope.countryBestValue = success.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -363,8 +359,8 @@ function wineApi($http, apiUrl) {
         },
 
         // get highest rated wine from each distinct type
-        getBestValue: function (type) {
-            var url = apiUrl + '/bestValue?type=' + type;
+        getBestValueCountry: function () {
+            var url = apiUrl + '/bestValueCountry';
             return $http.get(url);
         },
 
