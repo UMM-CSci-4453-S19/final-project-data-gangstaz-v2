@@ -10,7 +10,7 @@ function WineCtrl($scope, wineApi) {
         getReviewArray();
         getContinents();
         getCountries();
-        getFromCountries();
+        // getFromCountries();
         getHighestRated();
         getBestValue();
         getHighestPriceCountry();
@@ -36,15 +36,13 @@ function WineCtrl($scope, wineApi) {
     $scope.getHighestRated = getHighestRated;
     $scope.countriesHighestRated = [];
 
-    $scope.getHighestPriceCountry = getHighestPriceCountry;
-    $scope.countriesHighestPrice = [];
-
     $scope.getLowestPrice = getLowestPrice;
     $scope.countriesLowestPrice = [];
 
     $scope.getBestValue= getBestValue;
     $scope.countriesBestValue = [];
 
+    ////////////////////////////////////////////////////////
     $scope.getHighestPriceVariety = getHighestPriceVariety;
     $scope.varietyHighestPrice = [];
 
@@ -60,6 +58,10 @@ function WineCtrl($scope, wineApi) {
     $scope.getHighestPriceOverall = getHighestPriceOverall;
     $scope.overallHighestPrice = [];
 
+    $scope.getHighestPriceCountry = getHighestPriceCountry;
+    $scope.countriesHighestPrice = [];
+    ////////////////////////////////////////////////////////
+
     $scope.getHighestRatedOverall = getHighestRatedOverall;
     $scope.overallHighestRated = [];
 
@@ -74,7 +76,6 @@ function WineCtrl($scope, wineApi) {
     $scope.searchResults = [];
 
     $scope.getFromCountries = getFromCountries;
-    $scope.specificCountry = 'Argentina';
     $scope.specificCountryDetails = [];
 
 
@@ -137,19 +138,6 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    ////////////////////////////////////////////////////////////////////////
-    function getHighestPriceCountry(type) {
-        wineApi.getHighestPriceCountry(type)
-            .then(function (success) {
-                $scope.countriesHighestPrice = success.data;
-                console.log(success.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-    ////////////////////////////////////////////////////////////////////////////
-
     function getLowestPrice() {
         wineApi.getLowestPrice($scope.selectCountry)
             .then(function (success) {
@@ -170,6 +158,7 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
+    /////////////////////////////////////////////////////////////
     function getHighestPriceVariety() {
         wineApi.getHighestPriceVariety()
             .then(function (success) {
@@ -225,6 +214,18 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
+    function getHighestPriceCountry(type) {
+        wineApi.getHighestPriceCountry(type)
+            .then(function (success) {
+                $scope.countriesHighestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+    /////////////////////////////////////////////////////////////
+
     function getHighestRatedOverall() {
         wineApi.getHighestRatedOverall()
             .then(function (success) {
@@ -258,10 +259,12 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
-    function getFromCountries() {
-        wineApi.getFromCountry($scope.specificCountry)
+    function getFromCountries(country) {
+        wineApi.getFromCountry(country)
             .then(function (success) {
                 $scope.specificCountryDetails = success.data;
+                $scope.specificCountry = success.data[0].country;
+                console.log(success.data[0].country);
             })
             .catch(function (error) {
                 console.log(error);
@@ -335,12 +338,6 @@ function wineApi($http,apiUrl) {
         },
 
         // get highest rated wine from each distinct type
-        getHighestPriceCountry: function(){
-            var url = apiUrl + '/highestPriceCountry';
-            return $http.get(url);
-        },
-
-        // get highest rated wine from each distinct type
         getLowestPrice: function(type){
             var url = apiUrl + '/lowestPrice?type=' + type;
             return $http.get(url);
@@ -352,6 +349,7 @@ function wineApi($http,apiUrl) {
             return $http.get(url);
         },
 
+        ////////////////////////////////////////////////////
         // get highest priced wine from each distinct variety
         getHighestPriceVariety: function(){
             var url = apiUrl + '/highestPriceVariety';
@@ -381,6 +379,13 @@ function wineApi($http,apiUrl) {
             var url = apiUrl + '/highestPriceOverall';
             return $http.get(url);
         },
+
+        // get highest rated wine from each distinct type
+        getHighestPriceCountry: function(){
+            var url = apiUrl + '/highestPriceCountry';
+            return $http.get(url);
+        },
+        ////////////////////////////////////////////////////
 
         // get highest rated wine overall
         getHighestRatedOverall: function(){
