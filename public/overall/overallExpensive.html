@@ -7,26 +7,30 @@
 
 
     <!-- Cards -->
-    <div class="album py-5 bg-light" ng-controller="wineCtrl">
+    <div class="album py-5 bg-light">
         <div class="container">
 
             <div class="row">
 
                 <!-- Use ng-repeat on this to repeat it for each wine review we show -->
-                <div class="col-lg-4" ng-repeat="wine in countriesHighestRated">
+                <div class="col-lg-4" ng-repeat="wine in overallHighestPrice">
                     <div class="card mb-4 shadow-sm">
-
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">{{wine.max}}</span>
-                                {{wine.country}} ({{wine.province}})
+                                <span class="badge badge-success">{{wine.points}}</span>
+                                {{wine.designation}} {{wine.vintage}} {{wine.variety}}
+                                <br/>
+                                <div style="font-style: italic; font-family: 'GFS Artemisia'">
+                                    {{wine.province}}, {{wine.country}}
+                                    <div ng-show="{{wine.region.length>0}}">({{wine.region}})</div>
+                                </div>
                             </h6>
                         </div>
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{wine.winery}} {{wine.vintage}} {{wine.variety}}</small>
-                            </div>
                             <p class="card-text">{{wine.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="text-muted">${{wine.price}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
