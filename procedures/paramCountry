@@ -12,12 +12,9 @@ CREATE PROCEDURE paramCountry(IN countryIN TEXT)
 BEGIN
   DROP TABLE IF EXISTS paramTable;
 
-  CREATE TABLE paramTable SELECT * FROM taster
-  JOIN wineReviews ON tasterFk=tasterId
-  JOIN location ON locFk=locId
-  WHERE country = countryIN;
+  CREATE TABLE paramTable SELECT * FROM bigJoin where country = countryIN;
 
-  ALTER tABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
+  ALTER TABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
 
 END//
 

@@ -10,9 +10,7 @@ CREATE PROCEDURE paramGeneral()
 BEGIN
   DROP TABLE IF EXISTS paramTable;
 
-  CREATE TABLE paramTable SELECT * FROM taster
-  JOIN wineReviews ON tasterFk=tasterId
-  JOIN location ON locFk=locId;
+  CREATE TABLE paramTable SELECT * FROM bigJoin;
 
   ALTER tABLE paramTable ADD COLUMN (randId INT AUTO_INCREMENT NOT NULL PRIMARY KEY);
 

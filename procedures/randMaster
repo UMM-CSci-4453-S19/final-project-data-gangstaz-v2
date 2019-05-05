@@ -10,29 +10,19 @@ CREATE PROCEDURE randMaster(IN varType TEXT, IN varVal TEXT, IN randInt INT)
 
 BEGIN
 
-IF varType IS NULL THEN
+  IF varType IS NULL THEN CALL paramGeneral();
 
-CALL randomGen2(randINT);
+    ELSEIF varType = "c" THEN CALL paramCountry(varVal);
 
-select * from
-(select * from taster join wineReviews on tasterFk=tasterId join location on locFk=locId)
-AS temp, randTable where id = randTable.randId;
+    ELSEIF varType = "t" THEN CALL paramTaster(varVal);
 
-ELSE
+    ELSEIF varType = "v" THEN CALL paramVariety(varVal);
 
-IF varType = "c" THEN CALL paramCountry(varVal);
+  END IF;
 
-ELSEIF varType = "t" THEN CALL paramTaster(varVal);
+  CALL randomGen3(randINT);
 
-ELSEIF varType = "v" THEN CALL paramVariety(varVal);
-
-CALL randomGen2(randINT);
-
-select * from paramTable, randTable where paramTable.randId = randTable.randId;
-
-END IF;
-
-END IF;
+SELECT * FROM paramTable JOIN randTable on randTable.randId = paramTable.randId;
 
 END; //
 
