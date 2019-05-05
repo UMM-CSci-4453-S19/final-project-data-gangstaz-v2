@@ -17,6 +17,8 @@ function WineCtrl($scope, wineApi) {
         getLowestPrice();
         getHighestPriceOverall();
         getHighestRatedOverall();
+        getBestValueOverall();
+        getCheapestPriceOverall();
     };
 
     // $scope stuff and functions go here
@@ -46,6 +48,12 @@ function WineCtrl($scope, wineApi) {
 
     $scope.getHighestRatedOverall = getHighestRatedOverall;
     $scope.overallHighestRated = [];
+
+    $scope.getBestValueOverall = getBestValueOverall;
+    $scope.overallBestValue = [];
+
+    $scope.getCheapestPriceOverall = getCheapestPriceOverall;
+    $scope.overallCheapestPrice = [];
 
     $scope.varieties = [];
     $scope.continents = [];
@@ -169,6 +177,30 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
+    function getBestValueOverall() {
+        wineApi.getBestValueOverall()
+            .then(function (success) {
+                $scope.overallBestValue = success.data;
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getCheapestPriceOverall() {
+        wineApi.getCheapestPriceOverall()
+            .then(function (success) {
+                $scope.overallCheapestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getFromCountries() {
+        wineApi.getFromCountry($scope.specificCountry)
     function getFromCountries(country) {
         wineApi.getFromCountry(country)
             .then(function (success) {
@@ -276,6 +308,18 @@ function wineApi($http,apiUrl) {
         // get highest rated wine overall
         getHighestRatedOverall: function(){
             var url = apiUrl + '/highestRatedOverall';
+            return $http.get(url);
+        },
+
+        // get best valued wine overall
+        getBestValueOverall: function(){
+            var url = apiUrl + '/bestValueOverall';
+            return $http.get(url);
+        },
+
+        // get cheapest priced wine overall
+        getCheapestPriceOverall: function(){
+            var url = apiUrl + '/cheapestPriceOverall';
             return $http.get(url);
         },
 
