@@ -83,6 +83,9 @@ function WineCtrl($scope, wineApi) {
     $scope.getFromCountries = getFromCountries;
     $scope.specificCountryDetails = [];
 
+    $scope.getFromVarieties = getFromVarieties;
+    $scope.specificVarietyDetails = [];
+
 
     var loading = false;
 
@@ -279,7 +282,19 @@ function WineCtrl($scope, wineApi) {
             .then(function (success) {
                 $scope.specificCountryDetails = success.data;
                 $scope.specificCountry = success.data[0].country;
-                console.log(success.data[0].country);
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getFromVarieties(variety) {
+        wineApi.getFromVariety(variety)
+            .then(function (success) {
+                $scope.specificVarietyDetails = success.data;
+                $scope.specificVariety = success.data[0].variety;
+                console.log($scope.specificVarietyDetails);
             })
             .catch(function (error) {
                 console.log(error);
@@ -441,6 +456,13 @@ function wineApi($http,apiUrl) {
         // filter by country
         getFromCountry: function(country){
             var url = apiUrl + '/countries?country=' + country;
+            console.log("url is: " + url);
+            return $http.get(url);
+        },
+
+        // filter by variety
+        getFromVariety: function(variety){
+            var url = apiUrl + '/varietyList?variety=' + variety;
             console.log("url is: " + url);
             return $http.get(url);
         },
