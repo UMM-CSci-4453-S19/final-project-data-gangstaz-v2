@@ -402,6 +402,9 @@ app.config(function($routeProvider) {
         .when("/varietyCheap", {
             templateUrl : "./variety/varietyCheap.html"
         })
+        .when("/varietyDetails", {
+            templateUrl : "./variety/varietyDetails.html"
+        })
         //overall
         .when("/overallHighRated", {
             templateUrl : "./overall/overallHighRated.html"
