@@ -1,0 +1,42 @@
+<main role="main" class="container">
+
+    <div class="jumbotron  text-center">
+        <h1 class="">Highest Cost by Variety</h1>
+        <p class="lead">The most costly of each variety.</p>
+    </div>
+
+
+    <!-- Cards -->
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Use ng-repeat on this to repeat it for each wine review we show -->
+                <div class="col-lg-4" ng-repeat="variety in varietyHighestPrice">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h6>
+                                <span class="badge badge-success">{{variety.points}}</span>
+                                {{variety.designation}} {{variety.vintage}} {{variety.variety}}
+                                <br/>
+                                <div style="font-style: italic; font-family: 'GFS Artemisia'">
+                                    {{variety.province}}, {{variety.country}}
+                                    <div ng-show="{{variety.region.length>0}}">({{variety.region}})</div>
+                                </div>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{variety.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${{variety.price}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>

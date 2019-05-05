@@ -15,6 +15,10 @@ function WineCtrl($scope, wineApi) {
         getBestValue();
         getHighestPriceCountry();
         getLowestPrice();
+        getHighestPriceVariety();
+        getHighestRatedVariety();
+        getBestValueVariety();
+        getCheapestPriceVariety();
         getHighestPriceOverall();
         getHighestRatedOverall();
         getBestValueOverall();
@@ -39,6 +43,18 @@ function WineCtrl($scope, wineApi) {
     $scope.countriesBestValue = [];
 
     ////////////////////////////////////////////////////////
+    $scope.getHighestPriceVariety = getHighestPriceVariety;
+    $scope.varietyHighestPrice = [];
+
+    $scope.getHighestRatedVariety = getHighestRatedVariety;
+    $scope.varietyHighestRated = [];
+
+    $scope.getBestValueVariety = getBestValueVariety;
+    $scope.varietyBestValue = [];
+
+    $scope.getCheapestPriceVariety = getCheapestPriceVariety;
+    $scope.varietyCheapestPrice = [];
+
     $scope.getHighestPriceOverall = getHighestPriceOverall;
     $scope.overallHighestPrice = [];
 
@@ -143,6 +159,50 @@ function WineCtrl($scope, wineApi) {
     }
 
     /////////////////////////////////////////////////////////////
+    function getHighestPriceVariety() {
+        wineApi.getHighestPriceVariety()
+            .then(function (success) {
+                $scope.varietyHighestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getHighestRatedVariety() {
+        wineApi.getHighestRatedVariety()
+            .then(function (success) {
+                $scope.varietyHighestRated = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getBestValueVariety() {
+        wineApi.getBestValueVariety()
+            .then(function (success) {
+                $scope.varietyBestValue = success.data;
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getCheapestPriceVariety() {
+        wineApi.getCheapestPriceVariety()
+            .then(function (success) {
+                $scope.varietyCheapestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
     function getHighestPriceOverall() {
         wineApi.getHighestPriceOverall()
             .then(function (success) {
@@ -278,6 +338,30 @@ function wineApi($http, apiUrl) {
         },
 
         ////////////////////////////////////////////////////
+        // get highest priced wine from each distinct variety
+        getHighestPriceVariety: function(){
+            var url = apiUrl + '/highestPriceVariety';
+            return $http.get(url);
+        },
+
+        // get highest rated wine from each distinct variety
+        getHighestRatedVariety: function(){
+            var url = apiUrl + '/highestRatedVariety';
+            return $http.get(url);
+        },
+
+        // get best valued wine overall
+        getBestValueVariety: function(){
+            var url = apiUrl + '/bestValueVariety';
+            return $http.get(url);
+        },
+
+        // get cheapest priced wine overall
+        getCheapestPriceVariety: function(){
+            var url = apiUrl + '/cheapestPriceVariety';
+            return $http.get(url);
+        },
+
         // get highest priced wine overall
         getHighestPriceOverall: function () {
             var url = apiUrl + '/highestPriceOverall';
@@ -394,6 +478,9 @@ app.config(function ($routeProvider) {
         })
         .when("/varietyCheap", {
             templateUrl: "./variety/varietyCheap.html"
+        })
+        .when("/varietyDetails", {
+            templateUrl : "./variety/varietyDetails.html"
         })
         //overall
         .when("/overallHighRated", {
