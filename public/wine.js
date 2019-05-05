@@ -16,6 +16,7 @@ function WineCtrl($scope, wineApi) {
         getHighestPriceCountry();
         getLowestPrice();
         getHighestPriceOverall();
+        getHighestRatedOverall();
     };
 
     // $scope stuff and functions go here
@@ -41,6 +42,8 @@ function WineCtrl($scope, wineApi) {
     $scope.getHighestPriceOverall = getHighestPriceOverall;
     $scope.overallHighestPrice = [];
 
+    $scope.getHighestRatedOverall = getHighestRatedOverall;
+    $scope.overallHighestRated = [];
 
     $scope.varieties = [];
     $scope.continents = [];
@@ -154,6 +157,17 @@ function WineCtrl($scope, wineApi) {
             })
     }
 
+    function getHighestRatedOverall() {
+        wineApi.getHighestRatedOverall()
+            .then(function (success) {
+                $scope.overallHighestRated = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
     function getFromCountries() {
         wineApi.getFromCountry($scope.specificCountry)
             .then(function (success) {
@@ -236,12 +250,6 @@ function wineApi($http,apiUrl) {
             return $http.get(url);
         },
 
-        // get highest priced wine overall
-        getHighestPriceOverall: function(){
-            var url = apiUrl + '/highestPriceOverall';
-            return $http.get(url);
-        },
-
         // get highest rated wine from each distinct type
         getLowestPrice: function(type){
             var url = apiUrl + '/lowestPrice?type=' + type;
@@ -251,6 +259,18 @@ function wineApi($http,apiUrl) {
         // get highest rated wine from each distinct type
         getBestValue: function(type){
             var url = apiUrl + '/bestValue?type=' + type;
+            return $http.get(url);
+        },
+
+        // get highest priced wine overall
+        getHighestPriceOverall: function(){
+            var url = apiUrl + '/highestPriceOverall';
+            return $http.get(url);
+        },
+
+        // get highest rated wine overall
+        getHighestRatedOverall: function(){
+            var url = apiUrl + '/highestRatedOverall';
             return $http.get(url);
         },
 
