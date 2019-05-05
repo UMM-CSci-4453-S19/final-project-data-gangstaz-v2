@@ -9,16 +9,58 @@ function WineCtrl($scope, wineApi) {
         refreshVarieties();
         getReviewArray();
         getContinents();
-        // $scope.searchReviews();
-        console.log("init");
+        getCountries();
+        getFromCountries();
+        getHighestRated();
+        getBestValue();
+        getHighestPriceCountry();
+        getLowestPrice();
+        getHighestPriceOverall();
+        getHighestRatedOverall();
+        getBestValueOverall();
+        getCheapestPriceOverall();
     };
 
     // $scope stuff and functions go here
     $scope.getReviewArray = getReviewArray;
     $scope.reviews = [];
+
+    $scope.getCountries = getCountries;
+    $scope.countries = [];
+    $scope.selectCountry = 'country';
+
+    $scope.getHighestRated = getHighestRated;
+    $scope.countriesHighestRated = [];
+
+    $scope.getHighestPriceCountry = getHighestPriceCountry;
+    $scope.countriesHighestPrice = [];
+
+    $scope.getLowestPrice = getLowestPrice;
+    $scope.countriesLowestPrice = [];
+
+    $scope.getBestValue= getBestValue;
+    $scope.countriesBestValue = [];
+
+    $scope.getHighestPriceOverall = getHighestPriceOverall;
+    $scope.overallHighestPrice = [];
+
+    $scope.getHighestRatedOverall = getHighestRatedOverall;
+    $scope.overallHighestRated = [];
+
+    $scope.getBestValueOverall = getBestValueOverall;
+    $scope.overallBestValue = [];
+
+    $scope.getCheapestPriceOverall = getCheapestPriceOverall;
+    $scope.overallCheapestPrice = [];
+
     $scope.varieties = [];
     $scope.continents = [];
     $scope.searchResults = [];
+
+    $scope.getFromCountries = getFromCountries;
+    $scope.specificCountry = 'Argentina';
+    $scope.specificCountryDetails = [];
+
 
     var loading = false;
 
@@ -53,6 +95,113 @@ function WineCtrl($scope, wineApi) {
             .then(function (success) {
                 $scope.continents = success.data;
                 // console.log(success)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getCountries() {
+        wineApi.getType($scope.selectCountry)
+            .then(function (success) {
+                $scope.countries = success.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getHighestRated() {
+        wineApi.getHighestRated($scope.selectCountry)
+            .then(function (success) {
+                $scope.countriesHighestRated = success.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+    function getHighestPriceCountry(type) {
+        wineApi.getHighestPriceCountry(type)
+            .then(function (success) {
+                $scope.countriesHighestPrice = success.data;
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+    function getLowestPrice() {
+        wineApi.getLowestPrice($scope.selectCountry)
+            .then(function (success) {
+                $scope.countriesLowestPrice = success.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getBestValue() {
+        wineApi.getBestValue($scope.selectCountry)
+            .then(function (success) {
+                $scope.countriesBestValue = success.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getHighestPriceOverall() {
+        wineApi.getHighestPriceOverall()
+            .then(function (success) {
+                $scope.overallHighestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getHighestRatedOverall() {
+        wineApi.getHighestRatedOverall()
+            .then(function (success) {
+                $scope.overallHighestRated = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getBestValueOverall() {
+        wineApi.getBestValueOverall()
+            .then(function (success) {
+                $scope.overallBestValue = success.data;
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getCheapestPriceOverall() {
+        wineApi.getCheapestPriceOverall()
+            .then(function (success) {
+                $scope.overallCheapestPrice = success.data[0];
+                console.log(success.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    function getFromCountries() {
+        wineApi.getFromCountry($scope.specificCountry)
+            .then(function (success) {
+                $scope.specificCountryDetails = success.data;
             })
             .catch(function (error) {
                 console.log(error);
@@ -113,6 +262,60 @@ function wineApi($http,apiUrl) {
             return $http.get(url);
         },
 
+        // get list of the type searched by and how many wines there are by each distinct type
+        getType: function(type){
+            var url = apiUrl + '/listAllOfType?type=' + type;
+            return $http.get(url);
+        },
+
+        // get highest rated wine from each distinct type
+        getHighestRated: function(type){
+            var url = apiUrl + '/highestRated?type=' + type;
+            return $http.get(url);
+        },
+
+        // get highest rated wine from each distinct type
+        getHighestPriceCountry: function(){
+            var url = apiUrl + '/highestPriceCountry';
+            return $http.get(url);
+        },
+
+        // get highest rated wine from each distinct type
+        getLowestPrice: function(type){
+            var url = apiUrl + '/lowestPrice?type=' + type;
+            return $http.get(url);
+        },
+
+        // get highest rated wine from each distinct type
+        getBestValue: function(type){
+            var url = apiUrl + '/bestValue?type=' + type;
+            return $http.get(url);
+        },
+
+        // get highest priced wine overall
+        getHighestPriceOverall: function(){
+            var url = apiUrl + '/highestPriceOverall';
+            return $http.get(url);
+        },
+
+        // get highest rated wine overall
+        getHighestRatedOverall: function(){
+            var url = apiUrl + '/highestRatedOverall';
+            return $http.get(url);
+        },
+
+        // get best valued wine overall
+        getBestValueOverall: function(){
+            var url = apiUrl + '/bestValueOverall';
+            return $http.get(url);
+        },
+
+        // get cheapest priced wine overall
+        getCheapestPriceOverall: function(){
+            var url = apiUrl + '/cheapestPriceOverall';
+            return $http.get(url);
+        },
+
         // search based on input from the search bar
         getSearch: function(searchTerm,variety,vintage,continent){
             var url = apiUrl + '/search?';
@@ -133,7 +336,8 @@ function wineApi($http,apiUrl) {
 
         // filter by country
         getFromCountry: function(country){
-            var url = apiUrl + '/countries?filter=' + country;
+            var url = apiUrl + '/countries?country=' + country;
+            console.log("url is: " + url);
             return $http.get(url);
         },
 
@@ -178,6 +382,9 @@ app.config(function($routeProvider) {
         })
         .when("/countryCheap", {
             templateUrl : "./country/countryCheap.html"
+        })
+        .when("/countryDetails", {
+            templateUrl : "./country/countryDetails.html"
         })
         //variety
         .when("/varietyList", {

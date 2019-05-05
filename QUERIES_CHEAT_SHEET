@@ -38,3 +38,14 @@ select province, designation, variety, max(price) from taster join wineReviews o
 on locFk=locId where country = 'US' 
 AND province != "" group by province;
 
+An example of finding distinct entries by an aggregate function. In this case, it finds only the max price wines for
+each country :
+SELECT substr(bigJoin.description, 1, 20), bigJoin.country, bigJoin.price
+FROM bigJoin
+INNER JOIN
+	(select country, max(price) maxP
+	from bigJoin
+	group by country) b
+ON (bigJoin.country = b.country AND bigJoin.price = b.maxP) order by country;
+
+

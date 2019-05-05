@@ -1,0 +1,42 @@
+<main role="main" class="container">
+
+    <div class="jumbotron  text-center">
+        <h1 class="">Best Value</h1>
+        <p class="lead">The 10 best valued bootleg wines.</p>
+    </div>
+
+
+    <!-- Cards -->
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Use ng-repeat on this to repeat it for each wine review we show -->
+                <div class="col-lg-4" ng-repeat="wine in overallBestValue">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h6>
+                                <span class="badge badge-success">{{wine.points}}</span>
+                                {{wine.designation}} {{wine.vintage}} {{wine.variety}}
+                                <br/>
+                                <div style="font-style: italic; font-family: 'GFS Artemisia'">
+                                    {{wine.province}}, {{wine.country}}
+                                    <div ng-show="{{wine.region.length>0}}">({{wine.region}})</div>
+                                </div>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{wine.description}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${{wine.price}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
