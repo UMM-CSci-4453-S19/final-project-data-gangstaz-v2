@@ -1,10 +1,9 @@
 <main role="main" class="container">
 
     <div class="jumbotron  text-center">
-        <h1 class="">Highest Rated by Country (WIP)</h1>
-        <p class="lead">The best each country has to offer.</p>
+        <h1 class="">Highest Cost by Country (WIP)</h1>
+        <p class="lead">The most costly wine each country has to offer.</p>
     </div>
-
 
     <!-- Cards -->
     <div class="album py-5 bg-light" ng-controller="wineCtrl">
@@ -18,7 +17,7 @@
 
                         <div class="card-header">
                             <h6>
-                                <span class="badge badge-success">${{country.maxPrice}}</span>
+                                <span class="badge badge-success">${{country.aggColumn}}</span>
                                 {{country.country}} ({{country.province}})
                             </h6>
                         </div>
