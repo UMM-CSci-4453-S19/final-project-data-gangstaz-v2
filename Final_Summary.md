@@ -8,6 +8,7 @@ The home page shows a 100 random wine reviews including all relevant data to tha
 
 
 ### Abstract presentation of data models
+![alt text](https://github.com/UMM-CSci-4453-S19/final-project-data-gangstaz-v2/blob/master/winedbset.png "Our data in tables")
 
 ### Goals Acheived or Not Acheived
 #### Acheived:
